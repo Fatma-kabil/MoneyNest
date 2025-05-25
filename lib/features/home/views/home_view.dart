@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:money_nest/features/home/views/widgets/home_view_body.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -56,6 +57,7 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
+      body: HomeViewBody(),
     );
   }
 }
