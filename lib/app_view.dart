@@ -15,7 +15,8 @@ class MoneyNest extends StatelessWidget {
       onSurface: Colors.black,
       primary: kPrimaryColor,
       secondary: kSecondryColor,
-      tertiary: kTertiaryColor
+      tertiary: kTertiaryColor,
+      outline: onLinear
     ),),
       title: 'MoneyNeast',
       home: HomeView(),
