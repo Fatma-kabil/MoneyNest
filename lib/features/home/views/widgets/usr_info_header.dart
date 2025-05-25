@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:money_nest/app_style.dart';
-
+import 'profile_avatar.dart';
 
 class UserInfoHeader extends StatelessWidget {
   const UserInfoHeader({super.key});
@@ -10,20 +10,7 @@ class UserInfoHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.yellow[700],
-              ),
-            ),
-            Icon(CupertinoIcons.person_fill, color: Colors.yellow[800]),
-          ],
-        ),
+        const ProfileAvatar(),
         const SizedBox(width: 8),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,10 +24,17 @@ class UserInfoHeader extends StatelessWidget {
             Text(
               'John Doe',
               style: AppStyles.userNameText.copyWith(
-                color: Theme.of(context).colorScheme.onBackground,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ],
+        ),
+        const Spacer(),
+        IconButton(
+          onPressed: () {
+            // TODO: Navigate to settings
+          },
+          icon: const Icon(CupertinoIcons.settings),
         ),
       ],
     );
