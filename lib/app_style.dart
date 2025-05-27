@@ -13,6 +13,22 @@ class AppStyles {
     color: Colors.black, // هتتغير داخل الاستخدام لو عايزة
   );
 
- 
+  static const TextStyle totalBalanceTitle = TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle totalBalanceAmount = TextStyle(
+    fontSize: 40,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle incomeExpense = TextStyle(
+    fontSize: 14,
+    color: Colors.white,
+    fontWeight: FontWeight.w400,
+  );
   // زودي أي استايلات تانية تحتاجيها هنا
 }
