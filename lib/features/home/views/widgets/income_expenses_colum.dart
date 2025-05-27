@@ -38,7 +38,7 @@ class IncomeExpenseColumn extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(title, style: AppStyles.incomeExpense),
-            Text(amount, style: AppStyles.incomeExpense),
+            Text(amount, style: AppStyles.incomeExpenseValue),
           ],
         ),
       ],

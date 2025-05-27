@@ -30,5 +30,10 @@ class AppStyles {
     color: Colors.white,
     fontWeight: FontWeight.w400,
   );
+   static const TextStyle incomeExpenseValue = TextStyle(
+    fontSize: 14,
+    color: Colors.white,
+    fontWeight: FontWeight.w600,
+  );
   // زودي أي استايلات تانية تحتاجيها هنا
 }
