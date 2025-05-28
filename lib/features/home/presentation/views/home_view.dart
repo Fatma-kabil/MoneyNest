@@ -2,18 +2,32 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:money_nest/features/home/presentation/views/state_view.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/home_view_body.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  int index = 0;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-     // appBar: AppBar(),
+      // appBar: AppBar(),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
         child: BottomNavigationBar(
+          onTap: (value) {
+            setState(() {
+              index = value;
+            });
+            print(value);
+          },
+          //  fixedColor: Colors.red,
           backgroundColor: Colors.white,
           showSelectedLabels: false,
           showUnselectedLabels: false,
@@ -21,11 +35,19 @@ class HomeView extends StatelessWidget {
 
           items: [
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home),
+              icon: Icon(
+                size: 23,
+                CupertinoIcons.home,
+                color: index == 0 ? Colors.blue : Colors.grey,
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.graph_square_fill),
+              icon: Icon(
+                CupertinoIcons.graph_square_fill,
+                size: 23,
+                color: index == 1 ? Colors.blue : Colors.grey,
+              ),
               label: 'stats',
             ),
           ],
@@ -39,6 +61,8 @@ class HomeView extends StatelessWidget {
           borderRadius: BorderRadius.circular(16), // تحكّمي في الزوايا هنا
         ),
         child: Container(
+          height: 58,
+          width: 58,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16), // نفس الزوايا هنا
             gradient: LinearGradient(
@@ -50,14 +74,10 @@ class HomeView extends StatelessWidget {
               transform: GradientRotation(pi / 4),
             ),
           ),
-          child: const SizedBox(
-            width: 60, // عدّلي الحجم زي ما تحبي
-            height: 60,
-            child: Icon(CupertinoIcons.add),
-          ),
+          child: Icon(CupertinoIcons.add),
         ),
       ),
-      body: HomeViewBody(),
+      body: index == 0 ? HomeViewBody() : StateView(),
     );
   }
 }

@@ -11,7 +11,7 @@ class TotalBalanceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.width / 2,
+      height: MediaQuery.of(context).size.width / 2.1,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         gradient: LinearGradient(
