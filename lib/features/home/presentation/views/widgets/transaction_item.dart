@@ -34,8 +34,8 @@ class TransactionItem extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 Container(
-                  width: 50,
-                  height: 50,
+                  width: 35,
+                  height: 35,
                   decoration: BoxDecoration(
                     color: color,
                     shape: BoxShape.circle,

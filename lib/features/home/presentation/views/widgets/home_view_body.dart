@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_nest/features/home/data/data.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/total_balance_card.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/transaction_item.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/usr_info_header.dart';
@@ -17,7 +18,7 @@ class HomeViewBody extends StatelessWidget {
             const UserInfoHeader(),
             const SizedBox(height: 20),
             const TotalBalanceCard(),
-            const SizedBox(height: 40),
+            const SizedBox(height: 30),
             TransactionHeader(
               onViewAllTap: () {
                 // Handle view all action
@@ -26,16 +27,16 @@ class HomeViewBody extends StatelessWidget {
             const SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
-                itemCount: 6,
+                itemCount: transactionData.length,
                 itemBuilder: (context, int i) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16.0),
                     child: TransactionItem(
-                      title: 'Food',
-                      amount: '\$45.00',
-                      date: 'Today',
-                      icon: Icons.food_bank,
-                      color: Colors.yellow[700]!,
+                      title: transactionData[i]['name'],
+                      amount: transactionData[i]['totalAmount'],
+                      date: transactionData[i]['data'],
+                      icon: transactionData[i]['icon'],
+                      color: transactionData[i]['color'],
                     ),
                   );
                 },
