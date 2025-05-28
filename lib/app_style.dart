@@ -40,6 +40,9 @@ class AppStyles {
     fontSize: 16,
     color: Colors.white,
     fontWeight: FontWeight.w500,
+    
   );
+
+  static const TextStyle textBold20 =TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
   // زودي أي استايلات تانية تحتاجيها هنا
 }
