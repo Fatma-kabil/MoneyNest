@@ -35,5 +35,11 @@ class AppStyles {
     color: Colors.white,
     fontWeight: FontWeight.w600,
   );
+
+  static const TextStyle textMeduim16 = TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+    fontWeight: FontWeight.w500,
+  );
   // زودي أي استايلات تانية تحتاجيها هنا
 }

@@ -23,7 +23,7 @@ class TransactionHeader extends StatelessWidget {
           onTap: onViewAllTap,
           child: Text(
             'View All',
-            style: AppStyles.incomeExpenseValue.copyWith(
+            style: AppStyles.incomeExpense.copyWith(
               color: Theme.of(context).colorScheme.outline,
               fontWeight: FontWeight.w400,
             ),

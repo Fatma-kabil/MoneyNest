@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:money_nest/app_style.dart';
-import 'package:money_nest/features/home/views/widgets/income_expenses_colum.dart';
+import 'package:money_nest/features/home/presentation/views/widgets/income_expenses_colum.dart';
 
 class TotalBalanceCard extends StatelessWidget {
   const TotalBalanceCard({super.key});
