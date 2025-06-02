@@ -37,17 +37,19 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
             Text('Add Expenses', style: AppStyles.textMeduim20),
             SizedBox(height: 16),
             CustomTextFormField(
+              borderRadius: BorderRadius.circular(30),
               controller: expensesController,
               width: 0.7,
-              borderRedius: 30,
+
               prefxIcon: CupertinoIcons.money_dollar,
             ),
             SizedBox(height: 32),
             CustomTextFormField(
+              borderRadius: BorderRadius.circular(10),
               readOnly: true,
               controller: categoryController,
               width: 0.9,
-              borderRedius: 10,
+
               prefxIcon: Icons.list,
               suffixIcon: IconButton(
                 onPressed: () {
@@ -64,9 +66,10 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
             ),
             SizedBox(height: 16),
             CustomTextFormField(
+              borderRadius: BorderRadius.circular(10),
               controller: dateController,
               width: 0.9,
-              borderRedius: 10,
+              //  borderRedius: 10,
               prefxIcon: Icons.date_range_outlined,
               hint: 'Date',
               ontap: () async {
@@ -94,4 +97,3 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
     );
   }
 }
-
