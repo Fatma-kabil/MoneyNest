@@ -12,7 +12,8 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.readOnly = false,
     required this.borderRadius,
-    this.isDense =false
+    this.isDense = false,
+    this.filledColor,
   });
   final double width;
   //final double borderRedius;
@@ -23,7 +24,8 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final bool readOnly;
   final BorderRadius borderRadius;
- final bool isDense;
+  final bool isDense;
+  final Color? filledColor;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class CustomTextFormField extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           isDense: isDense,
-          fillColor: Colors.white,
+          fillColor: filledColor ?? Colors.white,
           filled: true,
           suffixIcon: suffixIcon,
           suffixIconColor: Colors.grey,
