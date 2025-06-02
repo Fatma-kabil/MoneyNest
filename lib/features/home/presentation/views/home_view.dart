@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:money_nest/features/add_expenses/presentation/views/add_expenses_screen.dart';
 import 'package:money_nest/features/home/presentation/views/state_view.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/home_view_body.dart';
 
@@ -55,7 +56,15 @@ class _HomeViewState extends State<HomeView> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return AddExpensesScreen();
+              },
+            ),
+          );
+        },
         // elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16), // تحكّمي في الزوايا هنا

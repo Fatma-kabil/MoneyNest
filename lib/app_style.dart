@@ -30,7 +30,7 @@ class AppStyles {
     color: Colors.white,
     fontWeight: FontWeight.w400,
   );
-   static const TextStyle incomeExpenseValue = TextStyle(
+  static const TextStyle incomeExpenseValue = TextStyle(
     fontSize: 14,
     color: Colors.white,
     fontWeight: FontWeight.w600,
@@ -40,9 +40,16 @@ class AppStyles {
     fontSize: 16,
     color: Colors.white,
     fontWeight: FontWeight.w500,
-    
   );
 
-  static const TextStyle textBold20 =TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+  static const TextStyle textBold20 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle textMeduim20 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+  );
   // زودي أي استايلات تانية تحتاجيها هنا
 }
