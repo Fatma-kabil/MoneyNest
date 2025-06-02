@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:money_nest/app_style.dart';
+import 'package:money_nest/features/add_expenses/presentation/views/widgets/categories_list.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_button.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_form_field.dart';
 
@@ -39,14 +40,26 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
               controller: expensesController,
               width: 0.7,
               borderRedius: 30,
-              icon: CupertinoIcons.money_dollar,
+              prefxIcon: CupertinoIcons.money_dollar,
             ),
             SizedBox(height: 32),
             CustomTextFormField(
+              readOnly: true,
               controller: categoryController,
               width: 0.9,
               borderRedius: 10,
-              icon: Icons.list,
+              prefxIcon: Icons.list,
+              suffixIcon: IconButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return CategoriesList();
+                    },
+                  );
+                },
+                icon: Icon(Icons.add),
+              ),
               hint: 'Categories',
             ),
             SizedBox(height: 16),
@@ -54,7 +67,7 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
               controller: dateController,
               width: 0.9,
               borderRedius: 10,
-              icon: Icons.date_range_outlined,
+              prefxIcon: Icons.date_range_outlined,
               hint: 'Date',
               ontap: () async {
                 DateTime? newDate = await showDatePicker(
@@ -81,3 +94,4 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
     );
   }
 }
+

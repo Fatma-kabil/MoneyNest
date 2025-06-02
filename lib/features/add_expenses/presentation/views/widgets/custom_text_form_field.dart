@@ -5,30 +5,38 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.width,
     required this.borderRedius,
-    required this.icon,
+    this.prefxIcon,
     this.ontap,
-    this.hint, this.controller,
+    this.hint,
+    this.controller,
+    this.suffixIcon,
+    this.readOnly = false,
   });
   final double width;
   final double borderRedius;
-  final IconData icon;
+  final IconData? prefxIcon;
+  final Widget? suffixIcon;
   final void Function()? ontap;
   final String? hint;
- final TextEditingController? controller;
+  final TextEditingController? controller;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * width,
       child: TextFormField(
-        
+        readOnly: readOnly,
         controller: controller,
         onTap: ontap,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
+          
           fillColor: Colors.white,
           filled: true,
-          prefixIcon: Icon(icon),
+          suffixIcon: suffixIcon,
+          suffixIconColor: Colors.grey,
+           prefixIcon: prefxIcon != null ? Icon(prefxIcon) : null,
           prefixIconColor: Colors.grey,
           hintText: hint ?? "",
           hintStyle: TextStyle(color: Colors.grey),
