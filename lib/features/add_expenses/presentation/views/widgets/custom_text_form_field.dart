@@ -21,6 +21,7 @@ class CustomTextFormField extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width * width,
       child: TextFormField(
+        
         controller: controller,
         onTap: ontap,
         textAlignVertical: TextAlignVertical.center,
