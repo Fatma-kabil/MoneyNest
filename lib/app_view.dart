@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:money_nest/constants.dart';
+import 'package:money_nest/core/constants.dart';
 import 'package:money_nest/features/home/presentation/views/home_view.dart';
 
 class MoneyNest extends StatelessWidget {

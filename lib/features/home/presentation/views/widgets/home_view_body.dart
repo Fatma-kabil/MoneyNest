@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_nest/features/home/data/data.dart';
+import 'package:money_nest/core/constants.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/total_balance_card.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/transaction_item.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/usr_info_header.dart';
