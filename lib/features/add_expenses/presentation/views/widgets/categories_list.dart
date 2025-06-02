@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/categoriey_icons_grid.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_button.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_form_field.dart';
+import 'package:money_nest/features/add_expenses/presentation/views/widgets/pick_color.dart';
 
 class CategoriesList extends StatefulWidget {
   const CategoriesList({super.key});
@@ -81,9 +81,17 @@ class _CategoriesListState extends State<CategoriesList> {
                               categoryColor = p0;
                             });
                           },
+                          categoryColor: categoryColor,
                         );
                       },
                     );
+                  },
+                ),
+                SizedBox(height: 20),
+                CustomTextButton(
+                  onPressed: () {
+                    // create category object and pop
+                    Navigator.pop(context);
                   },
                 ),
               ],
@@ -91,27 +99,6 @@ class _CategoriesListState extends State<CategoriesList> {
           ),
         );
       },
-    );
-  }
-}
-
-class PickColor extends StatelessWidget {
-  const PickColor({super.key, required this.onColorChanged});
-  final void Function(Color) onColorChanged;
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ColorPicker(pickerColor: Colors.blue, onColorChanged: onColorChanged),
-          CustomTextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ),
     );
   }
 }
