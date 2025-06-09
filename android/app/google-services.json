@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "404667908068",
+    "project_id": "mony-nest",
+    "storage_bucket": "mony-nest.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404667908068:android:e1c2d317af5054d699d1f1",
+        "android_client_info": {
+          "package_name": "com.example.money_nest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVQiz88ZUs75HoxZa5D5-sIqg4DOmqGbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
