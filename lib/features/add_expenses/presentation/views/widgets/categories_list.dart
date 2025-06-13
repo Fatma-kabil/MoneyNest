@@ -1,9 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_nest/features/add_expenses/data/models/category_model.dart';
+import 'package:money_nest/features/add_expenses/presentation/manager/create_category_cubit/create_category_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/categoriey_icons_grid.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_button.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_form_field.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/pick_color.dart';
+import 'package:uuid/uuid.dart';
 
 class CategoriesList extends StatefulWidget {
   const CategoriesList({super.key});
@@ -15,6 +21,7 @@ class CategoriesList extends StatefulWidget {
 class _CategoriesListState extends State<CategoriesList> {
   IconData? iconSelected;
   Color categoryColor = Colors.white;
+  TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +37,7 @@ class _CategoriesListState extends State<CategoriesList> {
               children: [
                 SizedBox(height: 15),
                 CustomTextFormField(
+                  controller: nameController,
                   isDense: true,
                   borderRadius: BorderRadius.circular(10),
                   width: 0.9,
@@ -90,7 +98,35 @@ class _CategoriesListState extends State<CategoriesList> {
                 SizedBox(height: 20),
                 CustomTextButton(
                   onPressed: () {
-                    // create category object and pop
+                    final name = nameController.text.trim();
+
+                    // تأكد إن المستخدم اختار الأيقونة
+                    if (iconSelected == null || name.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Please fill all fields")),
+                      );
+                      return;
+                    }
+
+                    // إنشاء كاتيجوري جديدة
+                    final category = CategoryModel(
+                      id: const Uuid().v4(),
+                      name: nameController.text,
+                      icon: iconSelected!,
+                      color: categoryColor,
+                      totalExpenses: 0,
+                    );
+
+                    // استدعاء Cubit
+                    context.read<CreateCategoryCubit>().createCategory(
+                      category,
+                    );
+
+                    log('icon: $iconSelected');
+                    log('color: $categoryColor');
+                    log('name: ${nameController.text}');
+
+                    // رجوع للشاشة السابقة
                     Navigator.pop(context);
                   },
                 ),

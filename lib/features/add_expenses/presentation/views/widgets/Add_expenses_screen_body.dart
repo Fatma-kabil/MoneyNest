@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:money_nest/app_style.dart';
+import 'package:money_nest/features/add_expenses/presentation/manager/create_category_cubit/create_category_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/categories_list.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_button.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_form_field.dart';
@@ -55,13 +57,20 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) {
-                      return CategoriesList();
+                    builder: (dialogContext) {
+                      return BlocProvider.value(
+                        value: context
+                            .read<
+                              CreateCategoryCubit
+                            >(), // بيوصل الكيوبت من فوق للديالوج
+                        child: CategoriesList(),
+                      );
                     },
                   );
                 },
-                icon: Icon(Icons.add),
+                icon: Icon(Icons.add), // أو أيقونتك الحالية
               ),
+
               hint: 'Categories',
             ),
             SizedBox(height: 16),

@@ -9,16 +9,18 @@ class PickColor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ColorPicker(pickerColor: categoryColor, onColorChanged: onColorChanged),
-          CustomTextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ColorPicker(pickerColor: categoryColor, onColorChanged: onColorChanged),
+            CustomTextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
