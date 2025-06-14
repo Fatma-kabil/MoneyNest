@@ -21,21 +21,30 @@ class CategoriesList extends StatefulWidget {
 class _CategoriesListState extends State<CategoriesList> {
   IconData? iconSelected;
   Color categoryColor = Colors.white;
-  TextEditingController nameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
-    bool isExpanded = false;
-    return StatefulBuilder(
-      builder: (context, setState) {
-        return AlertDialog(
-          backgroundColor: const Color.fromARGB(255, 180, 209, 212),
-          title: Text('Create a Category'),
-          content: SingleChildScrollView(
+    return AlertDialog(
+      backgroundColor: const Color.fromARGB(255, 180, 209, 212),
+      title: const Text('Create a Category'),
+      content: BlocConsumer<CreateCategoryCubit, CreateCategoryState>(
+        listener: (context, state) {
+          if (state is CreateCategorySuccess) {
+            Navigator.pop(context); // رجوع بعد الإنشاء
+          } else if (state is CreateCategoryFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Failed to create category")),
+            );
+          }
+        },
+        builder: (context, state) {
+          return SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 CustomTextFormField(
                   controller: nameController,
                   isDense: true,
@@ -43,7 +52,7 @@ class _CategoriesListState extends State<CategoriesList> {
                   width: 0.9,
                   hint: "Name",
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomTextFormField(
                   ontap: () {
                     setState(() {
@@ -52,27 +61,23 @@ class _CategoriesListState extends State<CategoriesList> {
                   },
                   isDense: true,
                   width: 0.9,
-                  // borderRedius: 10,
                   hint: "Icon",
                   readOnly: true,
-                  suffixIcon: Icon(CupertinoIcons.chevron_down, size: 18),
+                  suffixIcon: const Icon(CupertinoIcons.chevron_down, size: 18),
                   borderRadius: isExpanded
-                      ? BorderRadius.vertical(top: Radius.circular(10))
+                      ? const BorderRadius.vertical(top: Radius.circular(10))
                       : BorderRadius.circular(10),
                 ),
-                // استبدل جزء GridView السابق بهذا
-                isExpanded
-                    ? CategoryIconsGrid(
-                        selectedIcon: iconSelected,
-                        onIconSelected: (icon) {
-                          setState(() {
-                            iconSelected = icon;
-                          });
-                        },
-                      )
-                    : Container(),
-
-                SizedBox(height: 20),
+                if (isExpanded)
+                  CategoryIconsGrid(
+                    selectedIcon: iconSelected,
+                    onIconSelected: (icon) {
+                      setState(() {
+                        iconSelected = icon;
+                      });
+                    },
+                  ),
+                const SizedBox(height: 20),
                 CustomTextFormField(
                   filledColor: categoryColor,
                   isDense: true,
@@ -95,46 +100,40 @@ class _CategoriesListState extends State<CategoriesList> {
                     );
                   },
                 ),
-                SizedBox(height: 20),
-                CustomTextButton(
-                  onPressed: () {
-                    final name = nameController.text.trim();
+                const SizedBox(height: 20),
+                if (state is CreateCategoryLoading)
+                  const CircularProgressIndicator(color: Colors.grey,)
+                else
+                  CustomTextButton(
+                    onPressed: () {
+                      final name = nameController.text.trim();
+                      if (iconSelected == null || name.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Please fill all fields")),
+                        );
+                        return;
+                      }
 
-                    // تأكد إن المستخدم اختار الأيقونة
-                    if (iconSelected == null || name.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Please fill all fields")),
+                      final category = CategoryModel(
+                        id: const Uuid().v4(),
+                        name: name,
+                        icon: iconSelected!,
+                        color: categoryColor,
+                        totalExpenses: 0,
                       );
-                      return;
-                    }
 
-                    // إنشاء كاتيجوري جديدة
-                    final category = CategoryModel(
-                      id: const Uuid().v4(),
-                      name: nameController.text,
-                      icon: iconSelected!,
-                      color: categoryColor,
-                      totalExpenses: 0,
-                    );
+                      context.read<CreateCategoryCubit>().createCategory(category);
 
-                    // استدعاء Cubit
-                    context.read<CreateCategoryCubit>().createCategory(
-                      category,
-                    );
-
-                    log('icon: $iconSelected');
-                    log('color: $categoryColor');
-                    log('name: ${nameController.text}');
-
-                    // رجوع للشاشة السابقة
-                    Navigator.pop(context);
-                  },
-                ),
+                      log('icon: $iconSelected');
+                      log('color: $categoryColor');
+                      log('name: $name');
+                    },
+                  ),
               ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
