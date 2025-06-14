@@ -7,6 +7,7 @@ import 'package:money_nest/features/add_expenses/presentation/manager/create_cat
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/categories_list.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_button.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_form_field.dart';
+import 'package:money_nest/features/add_expenses/presentation/views/widgets/get_all_categories.dart';
 
 class AddExpensesScreenBody extends StatefulWidget {
   const AddExpensesScreenBody({super.key});
@@ -47,7 +48,7 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
             ),
             SizedBox(height: 32),
             CustomTextFormField(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
               readOnly: true,
               controller: categoryController,
               width: 0.9,
@@ -73,6 +74,7 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
 
               hint: 'Categories',
             ),
+            GetAllCategories(),
             SizedBox(height: 16),
             CustomTextFormField(
               borderRadius: BorderRadius.circular(10),
