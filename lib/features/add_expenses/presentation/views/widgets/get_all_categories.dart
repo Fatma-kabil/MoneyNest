@@ -16,7 +16,7 @@ class GetAllCategories extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
+            horizontal: 8.0,
 
             ///   vertical: 8,
           ),
