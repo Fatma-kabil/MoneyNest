@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_nest/features/add_expenses/data/models/category_model.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/create_category_cubit/create_category_cubit.dart';
+import 'package:money_nest/features/add_expenses/presentation/manager/get_all_categories_cubit/get_all_categories_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/categoriey_icons_grid.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_button.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_form_field.dart';
@@ -32,7 +33,12 @@ class _CategoriesListState extends State<CategoriesList> {
       content: BlocConsumer<CreateCategoryCubit, CreateCategoryState>(
         listener: (context, state) {
           if (state is CreateCategorySuccess) {
-            Navigator.pop(context); // رجوع بعد الإنشاء
+           
+            // ✅ Re-fetch categories after creation
+            context.read<GetAllCategoriesCubit>().get_all_categories();
+              Navigator.pop(context); // رجوع بعد الإنشاء
+
+           
           } else if (state is CreateCategoryFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Failed to create category")),
@@ -102,14 +108,16 @@ class _CategoriesListState extends State<CategoriesList> {
                 ),
                 const SizedBox(height: 20),
                 if (state is CreateCategoryLoading)
-                  const CircularProgressIndicator(color: Colors.grey,)
+                  const CircularProgressIndicator(color: Colors.grey)
                 else
                   CustomTextButton(
                     onPressed: () {
                       final name = nameController.text.trim();
                       if (iconSelected == null || name.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Please fill all fields")),
+                          const SnackBar(
+                            content: Text("Please fill all fields"),
+                          ),
                         );
                         return;
                       }
@@ -122,7 +130,9 @@ class _CategoriesListState extends State<CategoriesList> {
                         totalExpenses: 0,
                       );
 
-                      context.read<CreateCategoryCubit>().createCategory(category);
+                      context.read<CreateCategoryCubit>().createCategory(
+                        category,
+                      );
 
                       log('icon: $iconSelected');
                       log('color: $categoryColor');

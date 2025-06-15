@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:money_nest/app_style.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/create_category_cubit/create_category_cubit.dart';
+import 'package:money_nest/features/add_expenses/presentation/manager/get_all_categories_cubit/get_all_categories_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/categories_list.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_button.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_form_field.dart';
@@ -58,15 +59,20 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (dialogContext) {
-                      return BlocProvider.value(
-                        value: context
-                            .read<
-                              CreateCategoryCubit
-                            >(), // بيوصل الكيوبت من فوق للديالوج
-                        child: CategoriesList(),
-                      );
-                    },
+                   builder: (dialogContext) {
+  return MultiBlocProvider(
+    providers: [
+      BlocProvider.value(
+        value: context.read<CreateCategoryCubit>(),
+      ),
+      BlocProvider.value(
+        value: context.read<GetAllCategoriesCubit>(),
+      ),
+    ],
+    child: const CategoriesList(),
+  );
+},
+
                   );
                 },
                 icon: Icon(Icons.add), // أو أيقونتك الحالية

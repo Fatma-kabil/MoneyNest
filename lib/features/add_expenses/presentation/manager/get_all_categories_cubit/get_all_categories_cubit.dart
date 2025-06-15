@@ -13,7 +13,7 @@ class GetAllCategoriesCubit extends Cubit<GetAllCategoriesState> {
   Future<List<CategoryEntity>> get_all_categories() async {
   emit(GetAllCategoriesLoading());
   try {
-    final categories = await categoryRepo.getAllCategories();
+    final List<CategoryEntity> categories = await categoryRepo.getAllCategories();
     emit(GetAllCategoriesSuccess(categories));
     return categories;
   } catch (e) {
