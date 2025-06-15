@@ -127,7 +127,7 @@ class _CategoriesListState extends State<CategoriesList> {
                         name: name,
                         icon: iconSelected!,
                         color: categoryColor,
-                        totalExpenses: 0,
+                     //   totalExpenses: 0,
                       );
 
                       context.read<CreateCategoryCubit>().createCategory(

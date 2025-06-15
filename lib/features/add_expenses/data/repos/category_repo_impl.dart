@@ -15,7 +15,7 @@ class CategoryRepoImpl extends CategoryRepo {
       final model = CategoryModel(
         id: category.id,
         name: category.name,
-        totalExpenses: category.totalExpenses,
+      //  totalExpenses: category.totalExpenses,
         icon: category.icon,
         color: category.color,
       );

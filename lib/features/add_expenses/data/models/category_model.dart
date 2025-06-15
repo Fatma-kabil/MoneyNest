@@ -6,7 +6,7 @@ class CategoryModel extends CategoryEntity {
   const CategoryModel({
     required super.id,
     required super.name,
-    required super.totalExpenses,
+  //  required super.totalExpenses,
     required super.icon,
     required super.color,
   });
@@ -16,7 +16,7 @@ class CategoryModel extends CategoryEntity {
     return CategoryModel(
       id: map['id'],
       name: map['name'],
-      totalExpenses: (map['totalExpenses'] as num).toDouble(),
+    //  totalExpenses: (map['totalExpenses'] as num).toDouble(),
       icon: IconData(
         map['iconCodePoint'], // الرقم المحفوظ
         fontFamily: 'MaterialIcons', // لازم نحدده
@@ -30,7 +30,7 @@ class CategoryModel extends CategoryEntity {
     return {
       'id': id,
       'name': name,
-      'totalExpenses': totalExpenses,
+    //  'totalExpenses': totalExpenses,
       'iconCodePoint': icon.codePoint, // نحفظ كرقم
       'colorValue': color.value, // نحفظ كرقم
     };
