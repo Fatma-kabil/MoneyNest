@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_nest/features/add_expenses/data/repos/category_repo_impl.dart';
+import 'package:money_nest/features/add_expenses/data/repos/expence_repo_impl.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/create_category_cubit/create_category_cubit.dart';
+import 'package:money_nest/features/add_expenses/presentation/manager/create_expenses/create_expenses_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/get_all_categories_cubit/get_all_categories_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/add_expenses_screen.dart';
 import 'package:money_nest/features/home/presentation/views/state_view.dart';
@@ -70,7 +72,15 @@ class _HomeViewState extends State<HomeView> {
                       create: (context) =>
                           CreateCategoryCubit(CategoryRepoImpl()),
                     ),
-                    BlocProvider(create: (context) => GetAllCategoriesCubit(CategoryRepoImpl())..get_all_categories(),),
+                    BlocProvider(
+                      create: (context) =>
+                          GetAllCategoriesCubit(CategoryRepoImpl())
+                            ..get_all_categories(),
+                    ),
+                    BlocProvider(
+                      create: (context) =>
+                          CreateExpensesCubit(ExpenseRepoImpl()),
+                    ),
                   ],
                   child: AddExpensesScreen(),
                 );

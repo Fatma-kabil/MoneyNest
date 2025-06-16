@@ -14,7 +14,8 @@ class CustomTextFormField extends StatelessWidget {
     required this.borderRadius,
     this.isDense = false,
     this.filledColor,
-    this.hintStyle, this.prefixIconColor,
+    this.prefixIconColor,
+    this.style,
   });
   final double width;
   //final double borderRedius;
@@ -27,7 +28,7 @@ class CustomTextFormField extends StatelessWidget {
   final BorderRadius borderRadius;
   final bool isDense;
   final Color? filledColor;
-  final TextStyle? hintStyle;
+  final TextStyle? style; // ✅ هنا برضو
   final Color? prefixIconColor;
 
   @override
@@ -36,6 +37,7 @@ class CustomTextFormField extends StatelessWidget {
       width: MediaQuery.of(context).size.width * width,
       child: TextFormField(
         readOnly: readOnly,
+        style: style,
         controller: controller,
         onTap: ontap,
         textAlignVertical: TextAlignVertical.center,
@@ -46,9 +48,10 @@ class CustomTextFormField extends StatelessWidget {
           suffixIcon: suffixIcon,
           suffixIconColor: Colors.grey,
           prefixIcon: prefxIcon != null ? Icon(prefxIcon) : null,
-          prefixIconColor:prefixIconColor?? Colors.grey,
+          prefixIconColor: prefixIconColor ?? Colors.grey,
           hintText: hint ?? "",
-          hintStyle: hintStyle ?? TextStyle(color: Colors.grey),
+          hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+
           border: OutlineInputBorder(
             borderRadius: borderRadius,
             //  borderRadius: BorderRadius.circular(borderRedius),
