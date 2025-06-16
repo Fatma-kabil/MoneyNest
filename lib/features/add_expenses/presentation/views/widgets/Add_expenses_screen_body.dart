@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:money_nest/app_style.dart';
+import 'package:money_nest/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:money_nest/features/add_expenses/data/models/expense_model.dart';
 import 'package:money_nest/features/add_expenses/domain/entites/category_entity.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/create_category_cubit/create_category_cubit.dart';
@@ -45,15 +46,15 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
           selectedCategory = null;
 
           //  Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Expense created successfully"),
-              backgroundColor: Colors.grey,
-            ),
+          showCustomSnackBar(
+            context: context,
+            message: "Expense created successfully",
+            isSuccess: true,
           );
         } else if (state is CreateExpensesFaiure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Failed to create Expense")),
+          showCustomSnackBar(
+            context: context,
+            message: "Failed to create Expense",
           );
         }
       },
@@ -167,10 +168,9 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
                       final date = selectedDate;
 
                       if (amountText.isEmpty || category == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Please fill all fields"),
-                          ),
+                        showCustomSnackBar(
+                          context: context,
+                          message: "Please fill all fields",
                         );
                         return;
                       }

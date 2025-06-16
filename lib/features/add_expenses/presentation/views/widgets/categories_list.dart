@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_nest/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:money_nest/features/add_expenses/data/models/category_model.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/create_category_cubit/create_category_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/get_all_categories_cubit/get_all_categories_cubit.dart';
@@ -33,15 +34,13 @@ class _CategoriesListState extends State<CategoriesList> {
       content: BlocConsumer<CreateCategoryCubit, CreateCategoryState>(
         listener: (context, state) {
           if (state is CreateCategorySuccess) {
-           
             // ✅ Re-fetch categories after creation
             context.read<GetAllCategoriesCubit>().get_all_categories();
-              Navigator.pop(context); // رجوع بعد الإنشاء
-
-           
+            Navigator.pop(context); // رجوع بعد الإنشاء
           } else if (state is CreateCategoryFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Failed to create category")),
+            showCustomSnackBar(
+              context: context,
+              message: "Failed to create Category",
             );
           }
         },
@@ -114,10 +113,9 @@ class _CategoriesListState extends State<CategoriesList> {
                     onPressed: () {
                       final name = nameController.text.trim();
                       if (iconSelected == null || name.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Please fill all fields"),
-                          ),
+                        showCustomSnackBar(
+                          context: context,
+                          message: "Please fill all fields",
                         );
                         return;
                       }
@@ -127,7 +125,7 @@ class _CategoriesListState extends State<CategoriesList> {
                         name: name,
                         icon: iconSelected!,
                         color: categoryColor,
-                     //   totalExpenses: 0,
+                        //   totalExpenses: 0,
                       );
 
                       context.read<CreateCategoryCubit>().createCategory(
