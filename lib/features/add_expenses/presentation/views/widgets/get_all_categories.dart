@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_nest/app_style.dart';
+import 'package:money_nest/features/add_expenses/domain/entites/category_entity.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/get_all_categories_cubit/get_all_categories_cubit.dart';
 
 class GetAllCategories extends StatelessWidget {
-  const GetAllCategories({super.key});
-
+  const GetAllCategories({super.key, required this.onCategorySelected});
+  final Function(CategoryEntity) onCategorySelected;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,8 +30,13 @@ class GetAllCategories extends StatelessWidget {
                 return ListView.builder(
                   itemCount: state.categories.length,
                   itemBuilder: (context, index) {
+                    //    final category = state.categories[index];
                     return Card(
                       child: ListTile(
+                        onTap: () {
+                          onCategorySelected(state.categories[index]);
+                          //  Navigator.of(context).pop(); // لو انت مشغلها في Dialog
+                        },
                         leading: Icon(state.categories[index].icon, size: 25),
                         title: Text(
                           state.categories[index].name,

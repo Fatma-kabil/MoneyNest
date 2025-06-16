@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:money_nest/app_style.dart';
+import 'package:money_nest/features/add_expenses/domain/entites/category_entity.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/create_category_cubit/create_category_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/get_all_categories_cubit/get_all_categories_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/categories_list.dart';
@@ -22,6 +23,7 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
   TextEditingController categoryController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   DateTime selectedDate = DateTime.now();
+  CategoryEntity? selectedCategory;
 
   @override
   void initState() {
@@ -53,34 +55,45 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
               readOnly: true,
               controller: categoryController,
               width: 0.9,
+              filledColor: selectedCategory?.color ?? Colors.white,
 
-              prefxIcon: Icons.list,
+              prefxIcon: selectedCategory?.icon ?? Icons.list,
+
+              prefixIconColor: selectedCategory != null
+                  ? Colors.black
+                  : Colors.grey,
               suffixIcon: IconButton(
                 onPressed: () {
                   showDialog(
                     context: context,
-                   builder: (dialogContext) {
-  return MultiBlocProvider(
-    providers: [
-      BlocProvider.value(
-        value: context.read<CreateCategoryCubit>(),
-      ),
-      BlocProvider.value(
-        value: context.read<GetAllCategoriesCubit>(),
-      ),
-    ],
-    child: const CategoriesList(),
-  );
-},
-
+                    builder: (dialogContext) {
+                      return MultiBlocProvider(
+                        providers: [
+                          BlocProvider.value(
+                            value: context.read<CreateCategoryCubit>(),
+                          ),
+                          BlocProvider.value(
+                            value: context.read<GetAllCategoriesCubit>(),
+                          ),
+                        ],
+                        child: const CategoriesList(),
+                      );
+                    },
                   );
                 },
                 icon: Icon(Icons.add), // أو أيقونتك الحالية
               ),
 
-              hint: 'Categories',
+              hint: selectedCategory?.name ?? 'Categories',
             ),
-            GetAllCategories(),
+            GetAllCategories(
+              onCategorySelected: (category) {
+                setState(() {
+                  selectedCategory = category;
+                  categoryController.text = category.name;
+                });
+              },
+            ),
             SizedBox(height: 16),
             CustomTextFormField(
               borderRadius: BorderRadius.circular(10),

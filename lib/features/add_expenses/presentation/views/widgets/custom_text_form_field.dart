@@ -14,6 +14,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.borderRadius,
     this.isDense = false,
     this.filledColor,
+    this.hintStyle, this.prefixIconColor,
   });
   final double width;
   //final double borderRedius;
@@ -26,6 +27,8 @@ class CustomTextFormField extends StatelessWidget {
   final BorderRadius borderRadius;
   final bool isDense;
   final Color? filledColor;
+  final TextStyle? hintStyle;
+  final Color? prefixIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +46,9 @@ class CustomTextFormField extends StatelessWidget {
           suffixIcon: suffixIcon,
           suffixIconColor: Colors.grey,
           prefixIcon: prefxIcon != null ? Icon(prefxIcon) : null,
-          prefixIconColor: Colors.grey,
+          prefixIconColor:prefixIconColor?? Colors.grey,
           hintText: hint ?? "",
-          hintStyle: TextStyle(color: Colors.grey),
+          hintStyle: hintStyle ?? TextStyle(color: Colors.grey),
           border: OutlineInputBorder(
             borderRadius: borderRadius,
             //  borderRadius: BorderRadius.circular(borderRedius),
