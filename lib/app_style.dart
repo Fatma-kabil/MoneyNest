@@ -20,7 +20,7 @@ class AppStyles {
   );
 
   static const TextStyle totalBalanceAmount = TextStyle(
-    fontSize: 40,
+    fontSize: 35,
     color: Colors.white,
     fontWeight: FontWeight.bold,
   );

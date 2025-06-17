@@ -29,6 +29,8 @@ class ExpenseRepoImpl extends ExpenseRepo {
   Future<List<ExpenceEnitiy>> get_all_expenses() async {
     try {
       final snapshot = await expensesCollection.get();
+       log("🔁 Expenses fetched: ${snapshot.docs.length}");
+
 
       return snapshot.docs.map((doc) {
         final data = doc.data() as Map<String, dynamic>;

@@ -34,8 +34,8 @@ class TransactionItem extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 Container(
-                  width: 35,
-                  height: 35,
+                  width: 38,
+                  height: 38,
                   decoration: BoxDecoration(
                     color: color,
                     shape: BoxShape.circle,
@@ -56,11 +56,12 @@ class TransactionItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  amount,
+                  '\$${amount}',
                   style: AppStyles.textMeduim16.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
+
                 Text(
                   date,
                   style: AppStyles.incomeExpense.copyWith(

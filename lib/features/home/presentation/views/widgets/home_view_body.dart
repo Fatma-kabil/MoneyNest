@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:money_nest/core/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_nest/features/add_expenses/presentation/manager/get_all_expenses_cubit/get_all_expenses_cubit.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/total_balance_card.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/transaction_item.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/usr_info_header.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/transaction_header.dart';
+import 'package:intl/intl.dart';
 
-class HomeViewBody extends StatelessWidget {
+class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
+
+  @override
+  State<HomeViewBody> createState() => _HomeViewBodyState();
+}
+
+class _HomeViewBodyState extends State<HomeViewBody> {
+  @override
+  void initState() {
+    super.initState();
+   //  context.read<GetAllExpensesCubit>().get_all_expenses();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,23 +39,37 @@ class HomeViewBody extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: ListView.builder(
-                itemCount: transactionData.length,
-                itemBuilder: (context, int i) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: TransactionItem(
-                      title: transactionData[i]['name'],
-                      amount: transactionData[i]['totalAmount'],
-                      date: transactionData[i]['data'],
-                      icon: transactionData[i]['icon'],
-                      color: transactionData[i]['color'],
-                    ),
-                  );
+              child: BlocBuilder<GetAllExpensesCubit, GetAllExpensesState>(
+                builder: (context, state) {
+                  if (state is GetAllExpensesLoading) {
+                    return const Center(child: CircularProgressIndicator(color: Colors.grey,));
+                  } else if (state is GetAllExpensesFailure) {
+                    return Center(child: Text(state.errorMessage));
+                  } else if (state is GetAllExpensesSuccess) {
+                    final expenses = state.expenses;
+                    if (expenses.isEmpty) {
+                      return const Center(child: Text("No expenses yet"));
+                    }
+                    return ListView.separated(
+                      itemCount: expenses.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 12),
+                      itemBuilder: (context, index) {
+                        final expense = expenses[index];
+                        return TransactionItem(
+                          title: expense.category.name,
+                          amount: expense.amount.toString(),
+                          date: DateFormat('dd MMM yyyy').format(expense.date),
+                          icon: expense.category.icon,
+                          color: expense.category.color, // ?? Colors.grey,
+                        );
+                      },
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
                 },
               ),
             ),
-            // Add more widgets here...
           ],
         ),
       ),
