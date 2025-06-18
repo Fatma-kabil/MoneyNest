@@ -1,8 +1,16 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'dart:math';
 
+import 'package:money_nest/features/add_expenses/domain/entites/expence_enitiy.dart';
+
 class ChartDataHelper {
+  final List<BarChartGroupData> groups;
+  final List<String> keys;
+
+  ChartDataHelper({required this.groups, required this.keys});
+
   static BarChartGroupData makeGroupData({
     required int x,
     required double y,
@@ -24,7 +32,7 @@ class ChartDataHelper {
           ),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            toY: 5,
+            toY: 5, // 👈 العمود الرمادي ثابت لحد 5
             color: Colors.grey.shade300,
           ),
         ),
@@ -32,27 +40,22 @@ class ChartDataHelper {
     );
   }
 
-  static List<BarChartGroupData> showingGroups(BuildContext context) =>
-      List.generate(8, (i) {
-        switch (i) {
-          case 0:
-            return makeGroupData(x: 0, y: 2, context: context);
-          case 1:
-            return makeGroupData(x: 1, y: 3, context: context);
-          case 2:
-            return makeGroupData(x: 2, y: 2, context: context);
-          case 3:
-            return makeGroupData(x: 3, y: 4.5, context: context);
-          case 4:
-            return makeGroupData(x: 4, y: 3.8, context: context);
-          case 5:
-            return makeGroupData(x: 5, y: 1.5, context: context);
-          case 6:
-            return makeGroupData(x: 6, y: 4, context: context);
-          case 7:
-            return makeGroupData(x: 7, y: 3.8, context: context);
-          default:
-            throw Error();
-        }
-      });
+  static ChartDataHelper fromExpenses(
+      List<ExpenceEnitiy> expenses, BuildContext context) {
+    final Map<String, double> dailyTotals = {};
+
+    for (var expense in expenses) {
+      final day = DateFormat('dd/MM').format(expense.date);
+      dailyTotals[day] = (dailyTotals[day] ?? 0) + expense.amount;
+    }
+
+    final keys = dailyTotals.keys.toList();
+
+    final groups = List.generate(keys.length, (index) {
+      final amount = dailyTotals[keys[index]]!;
+      return makeGroupData(x: index, y: amount, context: context);
+    });
+
+    return ChartDataHelper(groups: groups, keys: keys);
+  }
 }
