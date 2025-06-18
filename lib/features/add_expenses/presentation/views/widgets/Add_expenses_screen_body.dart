@@ -46,7 +46,6 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
           dateController.text = DateFormat("dd/MM/yyyy").format(DateTime.now());
           selectedCategory = null;
 
-          // ✅ إعادة جلب المصاريف
           context.read<GetAllExpensesCubit>().get_all_expenses();
           Navigator.pop(context);
           showCustomSnackBar(
@@ -77,52 +76,58 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
                   controller: expensesController,
                   width: 0.7,
                   prefxIcon: CupertinoIcons.money_dollar,
-                  //   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   hint: 'Amount',
                 ),
 
                 const SizedBox(height: 32),
 
-                // Category Field
-                CustomTextFormField(
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(10),
-                  ),
-                  readOnly: true,
-                  controller: categoryController,
-                  width: 0.9,
-                  filledColor: selectedCategory?.color ?? Colors.white,
-                  prefxIcon: selectedCategory?.icon ?? Icons.list,
-                  prefixIconColor: selectedCategory != null
-                      ? Colors.black
-                      : Colors.grey,
-                  style: categoryController.text.isEmpty
-                      ? null
-                      : AppStyles.userNameText.copyWith(fontSize: 16),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (dialogContext) {
-                          return MultiBlocProvider(
-                            providers: [
-                              BlocProvider.value(
-                                value: context.read<CreateCategoryCubit>(),
-                              ),
-                              BlocProvider.value(
-                                value: context.read<GetAllCategoriesCubit>(),
-                              ),
-                            ],
-                            child: const CategoriesList(),
+                // Category Field with dynamic borderRadius
+                BlocBuilder<GetAllCategoriesCubit, GetAllCategoriesState>(
+                  builder: (context, catState) {
+                    final hasCategories = catState is GetAllCategoriesSuccess &&
+                        catState.categories.isNotEmpty;
+
+                    return CustomTextFormField(
+                      borderRadius: hasCategories
+                          ? const BorderRadius.vertical(top: Radius.circular(10))
+                          : BorderRadius.circular(10),
+                      readOnly: true,
+                      controller: categoryController,
+                      width: 0.9,
+                      filledColor: selectedCategory?.color ?? Colors.white,
+                      prefxIcon: selectedCategory?.icon ?? Icons.list,
+                      prefixIconColor:
+                          selectedCategory != null ? Colors.black : Colors.grey,
+                      style: categoryController.text.isEmpty
+                          ? null
+                          : AppStyles.userNameText.copyWith(fontSize: 16),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (dialogContext) {
+                              return MultiBlocProvider(
+                                providers: [
+                                  BlocProvider.value(
+                                    value: context.read<CreateCategoryCubit>(),
+                                  ),
+                                  BlocProvider.value(
+                                    value: context.read<GetAllCategoriesCubit>(),
+                                  ),
+                                ],
+                                child: const CategoriesList(),
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    icon: const Icon(Icons.add),
-                  ),
-                  hint: selectedCategory?.name ?? 'Categories',
+                        icon: const Icon(Icons.add),
+                      ),
+                      hint: selectedCategory?.name ?? 'Categories',
+                    );
+                  },
                 ),
 
+                // Get categories only if not empty
                 GetAllCategories(
                   onCategorySelected: (category) {
                     setState(() {
@@ -151,9 +156,7 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
                     if (newDate != null) {
                       setState(() {
                         selectedDate = newDate;
-                        dateController.text = DateFormat(
-                          "dd/MM/yyyy",
-                        ).format(newDate);
+                        dateController.text = DateFormat("dd/MM/yyyy").format(newDate);
                       });
                     }
                   },
@@ -193,9 +196,7 @@ class _AddExpensesScreenBodyState extends State<AddExpensesScreenBody> {
                         category: category,
                       );
 
-                      context.read<CreateExpensesCubit>().CreateExpenses(
-                        expense,
-                      );
+                      context.read<CreateExpensesCubit>().CreateExpenses(expense);
 
                       log('amount: $amount');
                       log('category: ${category.name}');

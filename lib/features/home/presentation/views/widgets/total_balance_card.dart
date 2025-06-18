@@ -5,10 +5,14 @@ import 'package:money_nest/app_style.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/income_expenses_colum.dart';
 
 class TotalBalanceCard extends StatelessWidget {
-  const TotalBalanceCard({super.key});
+  final double totalExpenses;
+
+  const TotalBalanceCard({super.key, required this.totalExpenses});
 
   @override
   Widget build(BuildContext context) {
+      final totalBalance = 2500.00 - totalExpenses;
+
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.width / 2.1,
@@ -26,7 +30,7 @@ class TotalBalanceCard extends StatelessWidget {
           BoxShadow(
             blurRadius: 4,
             color: Colors.grey.shade300,
-            offset: Offset(5, 5),
+            offset: const Offset(5, 5),
           ),
         ],
       ),
@@ -35,7 +39,7 @@ class TotalBalanceCard extends StatelessWidget {
         children: [
           Text('Total Balance', style: AppStyles.totalBalanceTitle),
           const SizedBox(height: 12),
-          Text('\$ 4,800.00', style: AppStyles.totalBalanceAmount),
+          Text('\$${totalBalance.toStringAsFixed(2)}', style: AppStyles.totalBalanceAmount), // ممكن تخليها dynamic بعدين
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
             child: Row(
@@ -45,13 +49,13 @@ class TotalBalanceCard extends StatelessWidget {
                   icon: CupertinoIcons.arrow_down,
                   iconColor: Colors.greenAccent,
                   title: 'Income',
-                  amount: '\$ 2.500.00',
+                  amount: '\$ 2,500.00', // Placeholder
                 ),
                 IncomeExpenseColumn(
                   icon: CupertinoIcons.arrow_down,
                   iconColor: Colors.red,
                   title: 'Expenses',
-                  amount: '\$ 2.500.00',
+                  amount: '\$ ${totalExpenses.toStringAsFixed(2)}',
                 ),
               ],
             ),

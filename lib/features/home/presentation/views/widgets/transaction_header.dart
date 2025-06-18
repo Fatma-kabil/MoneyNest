@@ -25,7 +25,7 @@ class TransactionHeader extends StatelessWidget {
             'View All',
             style: AppStyles.incomeExpense.copyWith(
               color: Theme.of(context).colorScheme.outline,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
