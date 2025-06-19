@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/get_all_expenses_cubit/get_all_expenses_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_button.dart';
+import 'package:money_nest/features/home/presentation/views/widgets/show_dalete_confirmation_dialog.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/transaction_list_view.dart';
 
 class TransactionViewBody extends StatefulWidget {
@@ -52,6 +53,9 @@ class _TransactionViewBodyState extends State<TransactionViewBody> {
                 if (expenses.isNotEmpty)
                   CustomTextButton(
                     buttonText: 'Delete',
+                    onPressed: () {
+                      showDeleteConfirmationDialog(context);
+                    },
                   ), // ✅ هيظهر فقط لو فيه مصاريف
               ],
             );
