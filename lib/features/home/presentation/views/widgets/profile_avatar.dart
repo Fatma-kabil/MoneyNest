@@ -10,8 +10,8 @@ class ProfileAvatar extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          width: 50,
-          height: 50,
+          width: 45,
+          height: 45,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.yellow[700],

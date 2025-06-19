@@ -8,7 +8,7 @@ class AppStyles {
   );
 
   static const TextStyle userNameText = TextStyle(
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeight.bold,
     color: Colors.black, // هتتغير داخل الاستخدام لو عايزة
   );

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomTextButton extends StatelessWidget {
-  const CustomTextButton({super.key, this.onPressed});
- final void Function()? onPressed;
+  const CustomTextButton({super.key, this.onPressed, this.buttonText});
+  final void Function()? onPressed;
+  final String? buttonText;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +11,7 @@ class CustomTextButton extends StatelessWidget {
       width: double.infinity,
       height: kTextTabBarHeight,
       child: TextButton(
-        onPressed:onPressed,
+        onPressed: onPressed,
         style: TextButton.styleFrom(
           backgroundColor: Colors.black,
           shape: RoundedRectangleBorder(
@@ -19,7 +20,7 @@ class CustomTextButton extends StatelessWidget {
         ),
 
         child: Text(
-          'Save',
+          buttonText ?? 'Save',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
