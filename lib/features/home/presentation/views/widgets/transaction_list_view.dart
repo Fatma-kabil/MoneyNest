@@ -5,13 +5,13 @@ import 'package:money_nest/features/home/presentation/views/widgets/transaction_
 
 class TransactionListView extends StatelessWidget {
   final List<ExpenceEnitiy> expenses;
-  final String? selectedId;
-  final void Function(String)? onSelect;
+  final Set<String>? selectedIds;
+  final void Function(String id)? onSelect;
 
   const TransactionListView({
     super.key,
     required this.expenses,
-    this.selectedId,
+    this.selectedIds,
     this.onSelect,
   });
 
@@ -36,7 +36,9 @@ class TransactionListView extends StatelessWidget {
       separatorBuilder: (_, __) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
         final expense = expenses[index];
-        final isSelected = selectedId == expense.id;
+         final isSelected = selectedIds?.contains(expense.id) ?? false;
+
+
 
         return GestureDetector(
           onTap: () => onSelect?.call(expense.id),

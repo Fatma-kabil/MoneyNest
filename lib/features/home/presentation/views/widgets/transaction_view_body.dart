@@ -12,7 +12,17 @@ class TransactionViewBody extends StatefulWidget {
 }
 
 class _TransactionViewBodyState extends State<TransactionViewBody> {
-   String? selectedExpenseId;
+  final Set<String> selectedExpenseIds = {};
+
+  void toggleSelect(String id) {
+    setState(() {
+      if (selectedExpenseIds.contains(id)) {
+        selectedExpenseIds.remove(id);
+      } else {
+        selectedExpenseIds.add(id);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +41,13 @@ class _TransactionViewBodyState extends State<TransactionViewBody> {
 
             return Column(
               children: [
-                Expanded(child: TransactionListView(expenses: expenses ,selectedId: selectedExpenseId,
-                    onSelect: (id) {
-                      setState(() {
-                        selectedExpenseId = id;
-                      });
-                    },
-                  ),),
+                Expanded(
+                  child: TransactionListView(
+                    expenses: expenses,
+                    selectedIds: selectedExpenseIds,
+                    onSelect: toggleSelect,
+                  ),
+                ),
 
                 if (expenses.isNotEmpty)
                   CustomTextButton(
