@@ -41,4 +41,18 @@ class ExpenseRepoImpl extends ExpenseRepo {
       rethrow;
     }
   }
+
+
+  @override
+Future<void> deleteExpenses(List<String> ids) async {
+  try {
+    for (var id in ids) {
+      await expensesCollection.doc(id).delete();
+    }
+  } catch (e) {
+    log('❌ Error in deleteExpenses: $e');
+    rethrow;
+  }
+}
+
 }
