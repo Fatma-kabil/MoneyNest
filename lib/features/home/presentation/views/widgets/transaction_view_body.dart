@@ -4,8 +4,15 @@ import 'package:money_nest/features/add_expenses/presentation/manager/get_all_ex
 import 'package:money_nest/features/add_expenses/presentation/views/widgets/custom_text_button.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/transaction_list_view.dart';
 
-class TransactionViewBody extends StatelessWidget {
+class TransactionViewBody extends StatefulWidget {
   const TransactionViewBody({super.key});
+
+  @override
+  State<TransactionViewBody> createState() => _TransactionViewBodyState();
+}
+
+class _TransactionViewBodyState extends State<TransactionViewBody> {
+   String? selectedExpenseId;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +31,13 @@ class TransactionViewBody extends StatelessWidget {
 
             return Column(
               children: [
-                Expanded(child: TransactionListView(expenses: expenses)),
+                Expanded(child: TransactionListView(expenses: expenses ,selectedId: selectedExpenseId,
+                    onSelect: (id) {
+                      setState(() {
+                        selectedExpenseId = id;
+                      });
+                    },
+                  ),),
 
                 if (expenses.isNotEmpty)
                   CustomTextButton(

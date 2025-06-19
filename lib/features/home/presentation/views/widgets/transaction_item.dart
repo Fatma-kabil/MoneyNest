@@ -1,5 +1,3 @@
-// features/home/presentation/views/widgets/transaction_item.dart
-
 import 'package:flutter/material.dart';
 import 'package:money_nest/app_style.dart';
 
@@ -11,6 +9,7 @@ class TransactionItem extends StatelessWidget {
     required this.date,
     required this.icon,
     required this.color,
+    this.isSelected = false,
   });
 
   final String title;
@@ -18,13 +17,17 @@ class TransactionItem extends StatelessWidget {
   final String date;
   final IconData icon;
   final Color color;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isSelected ? Colors.grey.shade300 : Colors.white, // ✅
         borderRadius: BorderRadius.circular(12),
+     //   border: 
+         //    Border.all(color: Colors.grey.shade600, width: 1)
+          //  , // اختياري: تضيف حدود عند التحديد
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,7 +64,6 @@ class TransactionItem extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
-
                 Text(
                   date,
                   style: AppStyles.incomeExpense.copyWith(

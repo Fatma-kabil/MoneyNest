@@ -15,7 +15,7 @@ class ChartContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       width: double.infinity,
-      height: MediaQuery.of(context).size.width * 1.5,
+      height: MediaQuery.of(context).size.width * 1.2,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(12, 20, 12, 12),
         child: BlocBuilder<GetAllExpensesCubit, GetAllExpensesState>(
