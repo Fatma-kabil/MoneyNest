@@ -32,7 +32,7 @@ class ChartDataHelper {
           ),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            toY: 5, // 👈 العمود الرمادي ثابت لحد 5
+            toY: 1500, // 👈 العمود الرمادي ثابت لحد 5
             color: Colors.grey.shade300,
           ),
         ),

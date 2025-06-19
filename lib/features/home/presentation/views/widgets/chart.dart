@@ -14,10 +14,21 @@ class MyChart extends StatelessWidget {
 
     return BarChart(
       BarChartData(
-        minY: 0, // 👈 أقل قيمة للـ Y
-        maxY: 9000, // 👈 أعلى قيمة للـ Y
+        minY: 0,
+        maxY: 1600,
         barGroups: chartData.groups,
-        gridData: FlGridData(show: false),
+        gridData: FlGridData(
+          show: true,
+          drawVerticalLine: false,
+          drawHorizontalLine: true,
+          horizontalInterval: 100,
+          getDrawingHorizontalLine: (value) {
+            if (value >= 100 && value <= 1500) {
+              return FlLine(color: Colors.grey.shade300, strokeWidth: 1);
+            }
+            return FlLine(strokeWidth: 0);
+          },
+        ),
         borderData: FlBorderData(show: false),
         titlesData: FlTitlesData(
           show: true,
@@ -45,9 +56,9 @@ class MyChart extends StatelessWidget {
               showTitles: true,
               reservedSize: 42,
               getTitlesWidget: (value, meta) {
-                if (value % 1000 == 0 && value >= 1000 && value <= 9000) {
+                if (value % 100 == 0 && value >= 100 && value <= 1500) {
                   return Text(
-                    '${(value ~/ 1000)}K',
+                    '${value.toInt()}',
                     style: const TextStyle(fontSize: 12),
                   );
                 }
