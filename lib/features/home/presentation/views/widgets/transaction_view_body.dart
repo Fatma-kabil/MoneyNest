@@ -54,7 +54,15 @@ class _TransactionViewBodyState extends State<TransactionViewBody> {
                   CustomTextButton(
                     buttonText: 'Delete',
                     onPressed: () {
-                      showDeleteConfirmationDialog(context);
+                       showDeleteConfirmDialog(
+      context: context,
+      selectedIds: selectedExpenseIds.toList(),
+      onSuccess: () {
+        setState(() {
+          selectedExpenseIds.clear(); // نفضي السلكشن بعد الحذف
+        });
+      },
+    );
                     },
                   ), // ✅ هيظهر فقط لو فيه مصاريف
               ],
