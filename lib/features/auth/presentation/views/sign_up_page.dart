@@ -6,6 +6,8 @@ import 'package:money_nest/features/auth/presentation/views/widgets/sign_up_form
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
 
+  final _formKey = GlobalKey<FormState>();
+
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -14,25 +16,23 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-    //  backgroundColor: Colors.green,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                //const SizedBox(height: 40),
                 SizedBox(
-                  height: screenHeight * 0.5, // يكون 25% من الشاشة بس
+                  height: screenHeight * 0.5,
                   child: Image.asset(
                     'assets/images/auth.png',
                     fit: BoxFit.fitHeight,
                   ),
                 ),
-
-                //   const SizedBox(height: 10),
                 SignUpForm(
+                  formKey: _formKey,
                   nameController: nameController,
                   emailController: emailController,
                   passwordController: passwordController,
@@ -41,7 +41,13 @@ class SignUpPage extends StatelessWidget {
                 const SizedBox(height: 30),
                 CustomButton(
                   onPressed: () {
-                    // Call your Cubit signUp
+                    if (_formKey.currentState!.validate()) {
+                      // ✅ البيانات صح .. استدعاء كيوبيت أو ريبوزيتوري
+                      debugPrint("Name: ${nameController.text}");
+                      debugPrint("Email: ${emailController.text}");
+                      debugPrint("Password: ${passwordController.text}");
+                      debugPrint("Income: ${incomeController.text}");
+                    }
                   },
                 ),
                 const SizedBox(height: 20),
@@ -49,7 +55,7 @@ class SignUpPage extends StatelessWidget {
                   question: "Have an account? ",
                   actionText: "Sign In",
                   onTap: () {
-                    //   Navigator.pushNamed(context, '/sign-in');
+                    // Navigator.pushNamed(context, '/sign-in');
                   },
                 ),
               ],

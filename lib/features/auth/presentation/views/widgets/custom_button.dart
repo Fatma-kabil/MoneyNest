@@ -11,11 +11,11 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 55,
+      height: 50,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           padding: EdgeInsets.zero,
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -30,13 +30,13 @@ class CustomButton extends StatelessWidget {
           ],
           transform: GradientRotation(pi / 4),
             ),
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(15),
           ),
           child: Container(
             alignment: Alignment.center,
             child: const Text(
               "Sign Up",
-              style: TextStyle(color: Colors.white, fontSize: 18),
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           ),
         ),

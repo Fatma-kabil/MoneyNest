@@ -17,14 +17,25 @@ class AuthFooter extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(question),
+        Text(
+          question,
+          style: const TextStyle(
+            fontSize: 15,
+            // fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 3, 45, 79),
+          ),
+        ),
         GestureDetector(
           onTap: onTap,
           child: Text(
             actionText,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(
+               fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 3, 45, 79),
+            ),
           ),
-        )
+        ),
       ],
     );
   }

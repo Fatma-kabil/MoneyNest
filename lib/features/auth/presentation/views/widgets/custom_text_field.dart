@@ -5,24 +5,30 @@ class CustomTextField extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
   final bool isObscure;
+   final String? Function(String?)? validator; // ✅ جديد
 
   const CustomTextField({
     super.key,
     required this.icon,
     required this.hint,
     required this.controller,
-    this.isObscure = false,
+    this.isObscure = false, this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        validator: validator, // ✅ استخدم الفاليديشن
       controller: controller,
       obscureText: isObscure,
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
-        hintText: hint,
+        label: Text(hint),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: Colors.black),
+        ),
       ),
     );
   }
