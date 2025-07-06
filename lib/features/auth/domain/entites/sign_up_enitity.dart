@@ -1,8 +1,8 @@
 class SignUpEnitity {
-  final String Name;
-  final String Email;
+  final String name;
+  final String email;
   final String password;
   final double income;
 
-  SignUpEnitity({required this.Name, required this.Email, required this.password, required this.income});
+  SignUpEnitity({required this.name, required this.email, required this.password, required this.income});
 }
