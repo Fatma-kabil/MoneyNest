@@ -15,7 +15,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+  
 
     return Scaffold(
       body: SafeArea(
@@ -24,13 +24,15 @@ class SignUpPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  height: screenHeight * 0.5,
-                  child: Image.asset(
-                    'assets/images/auth.png',
-                    fit: BoxFit.fitHeight,
+                ClipRect(
+                  child: Align(
+                    alignment: Alignment.center,
+                    heightFactor: 0.6, // قص من تحت
+                    widthFactor: 0.9, // قص من الجوانب
+                    child: Image.asset('assets/images/auth.png', height: 400),
                   ),
                 ),
+
                 SignUpForm(
                   formKey: _formKey,
                   nameController: nameController,
