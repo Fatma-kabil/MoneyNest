@@ -4,6 +4,8 @@ import 'package:money_nest/core/constants.dart';
 import 'package:money_nest/features/add_expenses/data/repos/expence_repo_impl.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/delete_expenses/delete_expenses_cubit.dart';
 import 'package:money_nest/features/add_expenses/presentation/manager/get_all_expenses_cubit/get_all_expenses_cubit.dart';
+import 'package:money_nest/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:money_nest/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:money_nest/features/auth/presentation/views/sign_up_page.dart';
 
 
@@ -19,6 +21,7 @@ class MoneyNest extends StatelessWidget {
               GetAllExpensesCubit(ExpenseRepoImpl())..get_all_expenses(),
         ),
         BlocProvider(create: (context) => DeleteExpensesCubit(ExpenseRepoImpl())),
+         BlocProvider(create: (context) => SignUpCubit(AuthRepoImpl())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
