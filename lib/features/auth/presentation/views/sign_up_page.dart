@@ -80,6 +80,7 @@ class SignUpPage extends StatelessWidget {
                                 color: Colors.grey,
                               )
                             : CustomButton(
+                                buttonText: "Sign Up",
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     final user = SignUpEnitity(
@@ -100,11 +101,11 @@ class SignUpPage extends StatelessWidget {
 
                         AuthFooter(
                           question: "Have an account? ",
-                          actionText: "Sign In",
+                          actionText: "Login ",
                           onTap: () {
                             Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (_) => const LoginPage()),
-                        );
+                              MaterialPageRoute(builder: (_) => LoginPage()),
+                            );
                             // Navigator.pushNamed(context, '/sign-in');
                           },
                         ),

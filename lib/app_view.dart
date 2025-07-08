@@ -6,7 +6,8 @@ import 'package:money_nest/features/add_expenses/presentation/manager/delete_exp
 import 'package:money_nest/features/add_expenses/presentation/manager/get_all_expenses_cubit/get_all_expenses_cubit.dart';
 import 'package:money_nest/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:money_nest/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
-import 'package:money_nest/features/auth/presentation/views/sign_up_page.dart';
+import 'package:money_nest/features/auth/presentation/views/login_page.dart';
+
 
 
 class MoneyNest extends StatelessWidget {
@@ -36,7 +37,7 @@ class MoneyNest extends StatelessWidget {
           ),
         ),
         title: 'MoneyNeast',
-        home: SignUpPage(),
+        home: LoginPage(),
       ),
     );
   }
