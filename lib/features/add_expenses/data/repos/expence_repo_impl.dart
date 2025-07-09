@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:money_nest/features/add_expenses/data/models/expense_model.dart';
 import 'package:money_nest/features/add_expenses/domain/entites/expence_enitiy.dart';
 import 'package:money_nest/features/add_expenses/domain/repos/expense_repo.dart';
@@ -16,6 +17,7 @@ class ExpenseRepoImpl extends ExpenseRepo {
         amount: expense.amount,
         category: expense.category,
         date: expense.date,
+        userId: expense.userId,
       );
 
       await expensesCollection.doc(model.id).set(model.toMap());
@@ -28,7 +30,12 @@ class ExpenseRepoImpl extends ExpenseRepo {
   @override
   Future<List<ExpenceEnitiy>> get_all_expenses() async {
     try {
-      final snapshot = await expensesCollection.get();
+      final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    final snapshot = await expensesCollection
+        .where('userId', isEqualTo: userId)
+        .get();
+    //  final snapshot = await expensesCollection.get();
        log("🔁 Expenses fetched: ${snapshot.docs.length}");
 
 
