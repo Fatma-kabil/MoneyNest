@@ -1,8 +1,8 @@
 // lib/features/auth/data/repos/auth_repo_impl.dart
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:money_nest/features/auth/domain/entites/login_entity.dart';
 import 'package:money_nest/features/auth/domain/entites/sign_up_enitity.dart';
 
 import '../../domain/repos/auth_repo.dart';
@@ -23,5 +23,13 @@ class AuthRepoImpl extends AuthRepo {
       'email': user.email,
       'income': user.income,
     });
+  }
+
+  @override
+  Future<void> logIn(LoginEntity user) async {
+     await _auth.signInWithEmailAndPassword(
+      email: user.email,
+      password: user.password,
+    );
   }
 }

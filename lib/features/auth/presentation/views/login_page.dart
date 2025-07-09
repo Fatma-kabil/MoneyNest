@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_nest/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:money_nest/features/auth/domain/entites/login_entity.dart';
+import 'package:money_nest/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:money_nest/features/auth/presentation/views/sign_up_page.dart';
 import 'package:money_nest/features/auth/presentation/views/widgets/auth-footer.dart';
 import 'package:money_nest/features/auth/presentation/views/widgets/custom_button.dart';
 import 'package:money_nest/features/auth/presentation/views/widgets/login_form.dart';
+import 'package:money_nest/features/home/presentation/views/home_view.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -31,32 +36,72 @@ class LoginPage extends StatelessWidget {
                     child: Image.asset('assets/images/auth.png', height: 400),
                   ),
                 ),
-
-                LoginForm(
-                  formKey: _formKey,
-
-                  emailController: emailController,
-                  passwordController: passwordController,
-                ),
-                const SizedBox(height: 30),
-
-                CustomButton(
-                  buttonText: "Login",
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                BlocConsumer<LoginCubit, LoginState>(
+                  listener: (context, state) {
+                    if (state is LoginSuccess) {
+                      showCustomSnackBar(
+                        context: context,
+                        message: 'Login successfully ✅',
+                        isSuccess: true,
+                      );
+                      Future.delayed(const Duration(seconds: 2), () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (_) => const HomeView()),
+                        );
+                      });
+                    } else if (state is LoginFailure) {
+                      showCustomSnackBar(
+                        context: context,
+                        message: state.errMessage,
+                        isSuccess: false,
+                      );
+                    }
                   },
-                ),
+                  builder: (context, state) {
+                    final isLoading = state is LoginLoading;
 
-                const SizedBox(height: 20),
+                    return Column(
+                      children: [
+                        LoginForm(
+                          formKey: _formKey,
 
-                AuthFooter(
-                  question: "Don’t have an account? ",
-                  actionText: "Sign Up",
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => SignUpPage()),
+                          emailController: emailController,
+                          passwordController: passwordController,
+                        ),
+
+                        const SizedBox(height: 30),
+                        isLoading
+                            ? const CircularProgressIndicator(
+                                color: Colors.grey,
+                              )
+                            : CustomButton(
+                                buttonText: "Login",
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    final user = LoginEntity(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    );
+
+                                    context.read<LoginCubit>().Login(user);
+                                  }
+                                },
+                              ),
+
+                        const SizedBox(height: 20),
+
+                        AuthFooter(
+                          question: "Don’t have an account? ",
+                          actionText: "Sign Up",
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (_) => SignUpPage()),
+                            );
+                            // Navigator.pushNamed(context, '/sign-in');
+                          },
+                        ),
+                      ],
                     );
-                    // Navigator.pushNamed(context, '/sign-in');
                   },
                 ),
               ],
