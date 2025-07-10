@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:money_nest/features/add_expenses/presentation/manager/get_all_expenses_cubit/get_all_expenses_cubit.dart';
+import 'package:money_nest/features/home/presentation/manager/user/user_cubit.dart';
 import 'package:money_nest/features/home/presentation/views/transaction_view.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/total_balance_card.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/transaction_header.dart';
@@ -31,27 +32,42 @@ class HomeViewBody extends StatelessWidget {
                 (previousValue, element) => previousValue + element.amount,
               );
 
-              return Column(
-                children: [
-                  const UserInfoHeader(),
-                  const SizedBox(height: 20),
-                  TotalBalanceCard(totalExpenses: totalExpenses),
-                  const SizedBox(height: 30),
-                  TransactionHeader(
-                    onViewAllTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return TransactionView();
+              return BlocBuilder<UserCubit, UserState>(
+                builder: (context, userState) {
+                  if (userState is UserLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (userState is UserLoaded) {
+                    return Column(
+                      children: [
+                         UserInfoHeader(name: userState.user.name,),
+                        const SizedBox(height: 20),
+                        TotalBalanceCard(
+                          totalExpenses: totalExpenses,
+                          income: userState.user.income,
+                        ),
+                        const SizedBox(height: 30),
+                        TransactionHeader(
+                          onViewAllTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => TransactionView(),
+                              ),
+                            );
                           },
                         ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(child: TransactionListView(expenses: expenses)),
-                ],
+                        const SizedBox(height: 20),
+                        Expanded(
+                          child: TransactionListView(expenses: expenses),
+                        ),
+                      ],
+                    );
+                  } else if (userState is UserError) {
+                    return Center(child: Text(userState.message));
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
               );
             } else {
               return const SizedBox.shrink();

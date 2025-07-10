@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_nest/core/utils/widgets/show_custom_snackbar.dart';
@@ -7,6 +8,7 @@ import 'package:money_nest/features/auth/presentation/views/login_page.dart';
 import 'package:money_nest/features/auth/presentation/views/widgets/auth-footer.dart';
 import 'package:money_nest/features/auth/presentation/views/widgets/custom_button.dart';
 import 'package:money_nest/features/auth/presentation/views/widgets/sign_up_form.dart';
+import 'package:money_nest/features/home/presentation/manager/user/user_cubit.dart';
 import 'package:money_nest/features/home/presentation/views/home_view.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -49,7 +51,15 @@ class SignUpPage extends StatelessWidget {
                       );
                       Future.delayed(const Duration(seconds: 2), () {
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (_) => const HomeView()),
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider(
+                              create: (_) => UserCubit()
+                                ..fetchUserData(
+                                  FirebaseAuth.instance.currentUser!.uid,
+                                ),
+                              child: const HomeView(),
+                            ),
+                          ),
                         );
                       });
                     } else if (state is SignUpFailure) {

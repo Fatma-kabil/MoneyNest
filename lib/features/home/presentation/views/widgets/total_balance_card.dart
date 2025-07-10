@@ -6,12 +6,13 @@ import 'package:money_nest/features/home/presentation/views/widgets/income_expen
 
 class TotalBalanceCard extends StatelessWidget {
   final double totalExpenses;
+  final double income;
 
-  const TotalBalanceCard({super.key, required this.totalExpenses});
+  const TotalBalanceCard({super.key, required this.totalExpenses, required this.income});
 
   @override
   Widget build(BuildContext context) {
-      final totalBalance = 2500.00 - totalExpenses;
+    final totalBalance = income - totalExpenses;
 
     return Container(
       width: double.infinity,
@@ -39,7 +40,10 @@ class TotalBalanceCard extends StatelessWidget {
         children: [
           Text('Total Balance', style: AppStyles.totalBalanceTitle),
           const SizedBox(height: 12),
-          Text('\$${totalBalance.toStringAsFixed(2)}', style: AppStyles.totalBalanceAmount), // ممكن تخليها dynamic بعدين
+          Text(
+            '\$${totalBalance.toStringAsFixed(2)}',
+            style: AppStyles.totalBalanceAmount,
+          ), // ممكن تخليها dynamic بعدين
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
             child: Row(
@@ -49,7 +53,7 @@ class TotalBalanceCard extends StatelessWidget {
                   icon: CupertinoIcons.arrow_down,
                   iconColor: Colors.greenAccent,
                   title: 'Income',
-                  amount: '\$ 2,500.00', // Placeholder
+                  amount:  '\$${income.toStringAsFixed(2)}', // Placeholder
                 ),
                 IncomeExpenseColumn(
                   icon: CupertinoIcons.arrow_down,

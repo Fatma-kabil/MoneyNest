@@ -4,8 +4,8 @@ import 'package:money_nest/app_style.dart';
 import 'profile_avatar.dart';
 
 class UserInfoHeader extends StatelessWidget {
-  const UserInfoHeader({super.key});
-
+  const UserInfoHeader({super.key, required this.name});
+  final String name;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -22,7 +22,7 @@ class UserInfoHeader extends StatelessWidget {
               ),
             ),
             Text(
-              'John Doe',
+              name,
               style: AppStyles.userNameText.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
               ),

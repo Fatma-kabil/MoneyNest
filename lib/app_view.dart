@@ -25,6 +25,7 @@ class MoneyNest extends StatelessWidget {
         BlocProvider(create: (context) => DeleteExpensesCubit(ExpenseRepoImpl())),
          BlocProvider(create: (context) => SignUpCubit(AuthRepoImpl())),
           BlocProvider(create: (context) => LoginCubit(AuthRepoImpl())),
+          
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
