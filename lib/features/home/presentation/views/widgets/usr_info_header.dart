@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:money_nest/app_style.dart';
+import 'package:money_nest/features/home/presentation/views/settingsView.dart';
 import 'profile_avatar.dart';
 
 class UserInfoHeader extends StatelessWidget {
@@ -32,7 +33,13 @@ class UserInfoHeader extends StatelessWidget {
         const Spacer(),
         IconButton(
           onPressed: () {
-            // TODO: Navigate to settings
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return SettingsView();
+                },
+              ),
+            );
           },
           icon: const Icon(CupertinoIcons.settings),
         ),
