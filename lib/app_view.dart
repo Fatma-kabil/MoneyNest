@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_nest/core/constants.dart';
@@ -8,6 +9,7 @@ import 'package:money_nest/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:money_nest/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:money_nest/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:money_nest/features/auth/presentation/views/login_page.dart';
+import 'package:money_nest/features/home/presentation/manager/user/user_cubit.dart';
 
 
 
@@ -25,8 +27,12 @@ class MoneyNest extends StatelessWidget {
         BlocProvider(create: (context) => DeleteExpensesCubit(ExpenseRepoImpl())),
          BlocProvider(create: (context) => SignUpCubit(AuthRepoImpl())),
           BlocProvider(create: (context) => LoginCubit(AuthRepoImpl())),
-          
-      ],
+           BlocProvider(
+                              create: (_) => UserCubit()
+                                ..fetchUserData(
+                                  FirebaseAuth.instance.currentUser!.uid,
+                            
+       ),)],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

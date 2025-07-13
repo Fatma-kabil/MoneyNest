@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:money_nest/app_style.dart';
-import 'package:money_nest/features/home/presentation/views/settingsView.dart';
+import 'package:money_nest/features/home/presentation/views/settings_view.dart';
 import 'profile_avatar.dart';
 
 class UserInfoHeader extends StatelessWidget {
