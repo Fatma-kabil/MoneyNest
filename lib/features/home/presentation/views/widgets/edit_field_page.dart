@@ -44,44 +44,97 @@ class _EditFieldDialogState extends State<EditFieldDialog> {
           .doc(uid)
           .update({widget.fieldName: value});
 
-      Navigator.of(context).pop(true); // ✅ success
+      Navigator.of(context).pop(true);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('❌ Failed to update: $e')),
       );
-      Navigator.of(context).pop(false); // ❌ failure
+      Navigator.of(context).pop(false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text("Edit ${widget.title}"),
-      content: TextField(
-        controller: controller,
-        keyboardType:
-            widget.isNumber ? TextInputType.number : TextInputType.text,
-        decoration: InputDecoration(
-          hintText: 'Enter new ${widget.title.toLowerCase()}',
-          border: const OutlineInputBorder(),
+    return Dialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 30),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 24, 20, 16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // 🎯 Title with icon
+            Row(
+              children: [
+                const Icon(Icons.edit_note_rounded, color: Colors.blue, size: 28),
+                const SizedBox(width: 10),
+                Text(
+                  "Edit ${widget.title}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+
+            // 📝 Input field
+            TextField(
+              controller: controller,
+              keyboardType:
+                  widget.isNumber ? TextInputType.number : TextInputType.text,
+              decoration: InputDecoration(
+                hintText: 'Enter new ${widget.title.toLowerCase()}',
+                filled: true,
+                fillColor: Colors.grey.shade100,
+                contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16, vertical: 14),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // ✅ Buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text("Cancel"),
+                ),
+                const SizedBox(width: 8),
+                isLoading
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : ElevatedButton.icon(
+                        onPressed: updateField,
+                        icon: const Icon(Icons.save_alt_rounded),
+                        label: const Text("Save"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 20,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+              ],
+            ),
+          ],
         ),
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
-        ),
-        isLoading
-            ? const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: SizedBox(
-                    height: 20, width: 20, child: CircularProgressIndicator()),
-              )
-            : ElevatedButton(
-                onPressed: updateField,
-                child: const Text('Save'),
-              ),
-      ],
     );
   }
 }
