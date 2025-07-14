@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_nest/features/auth/presentation/views/widgets/custom_text_field.dart';
 
-class SignUpForm extends StatelessWidget {
+class SignUpForm extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
@@ -18,13 +18,20 @@ class SignUpForm extends StatelessWidget {
   });
 
   @override
+  State<SignUpForm> createState() => _SignUpFormState();
+}
+
+class _SignUpFormState extends State<SignUpForm> {
+  bool _isPasswordObscured = true;
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         children: [
           CustomTextField(
-            controller: nameController,
+            controller: widget.nameController,
             icon: Icons.person_outline,
             hint: "Name",
             validator: (value) {
@@ -36,14 +43,15 @@ class SignUpForm extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           CustomTextField(
-            controller: emailController,
+            controller: widget.emailController,
             icon: Icons.email_outlined,
             hint: "Email",
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return 'Email is required';
-              } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$')
-                  .hasMatch(value)) {
+              } else if (!RegExp(
+                r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$',
+              ).hasMatch(value)) {
                 return 'Enter a valid email';
               }
               return null;
@@ -51,10 +59,20 @@ class SignUpForm extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           CustomTextField(
-            controller: passwordController,
+            controller: widget.passwordController,
             icon: Icons.lock_outline,
             hint: "Password",
-            isObscure: true,
+            isObscure: _isPasswordObscured,
+            suffixicon: IconButton(
+              icon: Icon(
+                _isPasswordObscured ? Icons.visibility_off : Icons.visibility,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isPasswordObscured = !_isPasswordObscured;
+                });
+              },
+            ),
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return 'Password is required';
@@ -66,7 +84,7 @@ class SignUpForm extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           CustomTextField(
-            controller: incomeController,
+            controller: widget.incomeController,
             icon: Icons.attach_money,
             hint: "Income",
             validator: (value) {

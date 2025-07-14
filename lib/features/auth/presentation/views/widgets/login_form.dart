@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_nest/features/auth/presentation/views/widgets/custom_text_field.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   
   final TextEditingController emailController;
   final TextEditingController passwordController;
@@ -18,15 +18,22 @@ class LoginForm extends StatelessWidget {
   });
 
   @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+ bool _isPasswordObscured = true;
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         children: [
          
           
           CustomTextField(
-            controller: emailController,
+            controller: widget.emailController,
             icon: Icons.email_outlined,
             hint: "Email",
             validator: (value) {
@@ -41,10 +48,21 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           CustomTextField(
-            controller: passwordController,
+            controller: widget.passwordController,
             icon: Icons.lock_outline,
             hint: "Password",
-            isObscure: true,
+           
+            isObscure: _isPasswordObscured,
+            suffixicon: IconButton(
+              icon: Icon(
+                _isPasswordObscured ? Icons.visibility_off : Icons.visibility,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isPasswordObscured = !_isPasswordObscured;
+                });
+              },
+            ),
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return 'Password is required';
