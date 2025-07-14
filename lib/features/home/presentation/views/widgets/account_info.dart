@@ -47,7 +47,20 @@ class AccountInfo extends StatelessWidget {
           leading: const Icon(Icons.email_outlined),
           title: "Email",
           subtitle: user.email,
-          onPressed: null, // disabled
+          onPressed:  () async {
+            final updated = await showDialog(
+              context: context,
+              builder: (_) => EditFieldDialog(
+                title: "Email",
+                fieldName: "email",
+                initialValue: user.email,
+              ),
+            );
+
+            if (updated == true) {
+              context.read<UserCubit>().fetchUserData(user.id);
+            }
+          },// disabled
         ),
 
         /// 💰 Income

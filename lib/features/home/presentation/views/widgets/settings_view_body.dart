@@ -5,6 +5,7 @@ import 'package:money_nest/features/auth/presentation/views/login_page.dart';
 import 'package:money_nest/features/home/data/user_app_model.dart';
 import 'package:money_nest/features/home/presentation/manager/user/user_cubit.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/account_info.dart';
+import 'package:money_nest/features/home/presentation/views/widgets/account_settings.dart';
 
 
 
@@ -30,28 +31,7 @@ class SettingsViewBody extends StatelessWidget {
             children: [
               AccountInfo(user: user),
 
-              const Text(
-                "Account Settings",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              ListTile(
-                leading: const Icon(Icons.lock_outline),
-                title: const Text("Change Password"),
-                onTap: () {
-                  // TODO: Navigate to change password screen
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text("Logout"),
-                onTap: () async {
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => LoginPage()),
-                  );
-                },
-              ),
+              AccountSettings(),
             ],
           );
         } else if (state is UserError) {

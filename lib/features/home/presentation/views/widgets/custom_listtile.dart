@@ -5,12 +5,12 @@ class CustomListTile extends StatelessWidget {
   const CustomListTile({
     super.key,
     required this.title,
-    required this.subtitle,
+     this.subtitle,
     required this.onPressed,
     required this.leading,
   });
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final void Function()? onPressed;
   final Widget leading;
 
@@ -19,7 +19,7 @@ class CustomListTile extends StatelessWidget {
     return ListTile(
       leading: leading,
       title: Text(title),
-      subtitle: Text(subtitle),
+      subtitle: Text(subtitle??""),
       trailing: IconButton(
         icon: const Icon(Icons.edit, color: Colors.blue),
         onPressed: onPressed,
