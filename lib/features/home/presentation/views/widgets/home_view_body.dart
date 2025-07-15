@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:money_nest/features/add_expenses/presentation/manager/get_all_expenses_cubit/get_all_expenses_cubit.dart';
 import 'package:money_nest/features/home/presentation/manager/user/user_cubit.dart';
@@ -20,8 +21,11 @@ class HomeViewBody extends StatelessWidget {
         child: BlocBuilder<GetAllExpensesCubit, GetAllExpensesState>(
           builder: (context, state) {
             if (state is GetAllExpensesLoading) {
-              return const Center(
-                child: CircularProgressIndicator(color: Colors.grey),
+              return  Center(
+                child: LoadingAnimationWidget.progressiveDots(
+                      color: Colors.grey,
+                      size: 50,
+                    ),
               );
             } else if (state is GetAllExpensesFailure) {
               return Center(child: Text(state.errorMessage));
@@ -35,7 +39,10 @@ class HomeViewBody extends StatelessWidget {
               return BlocBuilder<UserCubit, UserState>(
                 builder: (context, userState) {
                   if (userState is UserLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return  Center(child: LoadingAnimationWidget.progressiveDots(
+                      color: Colors.grey,
+                      size: 50,
+                    ));
                   } else if (userState is UserLoaded) {
                     return Column(
                       children: [

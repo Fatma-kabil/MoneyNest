@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:money_nest/features/auth/presentation/views/login_page.dart';
 import 'package:money_nest/features/home/data/user_app_model.dart';
 import 'package:money_nest/features/home/presentation/manager/user/user_cubit.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/account_info.dart';
