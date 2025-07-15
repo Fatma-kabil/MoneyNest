@@ -3,7 +3,7 @@ import 'package:money_nest/features/add_expenses/domain/entites/category_entity.
 
 
 class CategoryModel extends CategoryEntity {
-  const CategoryModel({
+  const CategoryModel({required super.userId, 
     required super.id,
     required super.name,
   //  required super.totalExpenses,
@@ -22,6 +22,7 @@ class CategoryModel extends CategoryEntity {
         fontFamily: 'MaterialIcons', // لازم نحدده
       ),
       color: Color(map['colorValue']),
+       userId: map['userId'],
     );
   }
 
@@ -32,7 +33,9 @@ class CategoryModel extends CategoryEntity {
       'name': name,
     //  'totalExpenses': totalExpenses,
       'iconCodePoint': icon.codePoint, // نحفظ كرقم
-      'colorValue': color.value, // نحفظ كرقم
+      'colorValue': color.value, 
+      // نحفظ كرقم
+       'userId': userId,
     };
   }
 }

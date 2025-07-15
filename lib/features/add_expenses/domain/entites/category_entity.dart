@@ -6,8 +6,10 @@ class CategoryEntity {
 //  final double totalExpenses;
   final IconData icon;
   final Color color;
+   final String userId; // ✅ جديد
 
-  const CategoryEntity({
+
+  const CategoryEntity({required this.userId, 
     required this.id,
     required this.name,
  //   required this.totalExpenses,

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -125,6 +126,7 @@ class _CategoriesListState extends State<CategoriesList> {
                         name: name,
                         icon: iconSelected!,
                         color: categoryColor,
+                         userId: FirebaseAuth.instance.currentUser!.uid,
                         //   totalExpenses: 0,
                       );
 
