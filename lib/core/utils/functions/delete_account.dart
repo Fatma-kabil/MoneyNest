@@ -1,64 +1,116 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:money_nest/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:money_nest/features/auth/presentation/views/login_page.dart';
 
 void deleteAccount(BuildContext context) async {
+  final scaffoldMessenger = ScaffoldMessenger.of(context);
+  final navigator = Navigator.of(context);
+
   try {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      await user.delete(); // حذف الحساب
-      await FirebaseAuth.instance.signOut(); // تسجيل الخروج
+      final uid = user.uid;
+      final firestore = FirebaseFirestore.instance;
 
-      // عرض رسالة نجاح
-      showCustomSnackBar(
-        context: context,
-        message: '✅ Your account has been deleted successfully.\n✅ تم حذف حسابك بنجاح.',
-        isSuccess: true,
+      // 🧍‍♀️ 1. حذف بيانات المستخدم
+      await firestore.collection('Users').doc(uid).delete();
+
+      // 💸 2. حذف كل المصروفات المرتبطة بالمستخدم
+      final expenses = await firestore
+          .collection('Expenses')
+          .where('userId', isEqualTo: uid)
+          .get();
+
+      for (var doc in expenses.docs) {
+        await doc.reference.delete();
+      }
+
+      // 🗂️ 3. حذف كل التصنيفات المرتبطة بالمستخدم
+      final categories = await firestore
+          .collection('categories')
+          .where('userId', isEqualTo: uid)
+          .get();
+
+      for (var doc in categories.docs) {
+        await doc.reference.delete();
+      }
+
+      // ✅ 4. عرض رسالة نجاح قبل حذف الحساب من Firebase Auth
+      scaffoldMessenger.showSnackBar(
+         SnackBar(
+          content: Text(
+            '✅ Account deleted successfully.\n✅ تم حذف حسابك بنجاح.',
+          ),
+          backgroundColor: Colors.green,
+           behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+        ),
       );
 
-      // انتظار صغير علشان تظهر الرسالة قبل الانتقال
-      await Future.delayed(Duration(milliseconds: 600));
+      // ⏳ انتظار علشان تظهر الرسالة قبل حذف الحساب
+      await Future.delayed(const Duration(seconds: 1));
 
-      // توجيه لصفحة تسجيل الدخول
-      Navigator.of(context).pushReplacement(
+      // 🔐 5. حذف حساب Firebase Auth
+      await user.delete();
+
+      // 🚪 6. تسجيل الخروج
+      await FirebaseAuth.instance.signOut();
+
+      // ↩️ 7. التوجيه لصفحة تسجيل الدخول
+      navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => LoginPage()),
+        (route) => false,
       );
     } else {
-      showCustomSnackBar(
-        context: context,
-        message: '❌ No user is currently signed in.\n❌ لا يوجد مستخدم مسجل دخول حالياً.',
-        isSuccess: false,
+      scaffoldMessenger.showSnackBar(
+         SnackBar(
+          content: Text('❌ No user is currently signed in.'),
+          behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+        ),
       );
     }
   } on FirebaseAuthException catch (e) {
     if (e.code == 'requires-recent-login') {
-      showCustomSnackBar(
-        context: context,
-        message: '⚠️ For your security, please log in again before deleting your account.\n⚠️ لأسباب أمنية، يرجى تسجيل الدخول مرة أخرى قبل حذف الحساب.',
-        isSuccess: false,
+      scaffoldMessenger.showSnackBar(
+         SnackBar(
+          content: Text(
+            '⚠️ Please log in again before deleting your account.\n⚠️ يرجى تسجيل الدخول مرة أخرى.',
+          ),
+          behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+        ),
       );
     } else if (e.code == 'network-request-failed') {
-      showCustomSnackBar(
-        context: context,
-        message: '❌ No internet connection. Please check your connection and try again.\n❌ لا يوجد اتصال بالإنترنت، حاول مرة أخرى.',
-        isSuccess: false,
+      scaffoldMessenger.showSnackBar(
+         SnackBar(
+          content: Text(
+            '❌ No internet connection. Please try again.\n❌ لا يوجد اتصال بالإنترنت.',
+          ), behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+        ),
       );
-    } else {
-      debugPrint('Firebase error: ${e.message}');
-      showCustomSnackBar(
-        context: context,
-        message: '❌ Something went wrong. Please try again.\n❌ حدث خطأ ما، يرجى المحاولة مرة أخرى.',
-        isSuccess: false,
-      );
-    }
+    } 
   } catch (e) {
     debugPrint('Unexpected error: $e');
-    showCustomSnackBar(
-      context: context,
-      message: '❌ An unexpected error occurred. Please try again.\n❌ حصل خطأ غير متوقع، حاول مرة تانية.',
-      isSuccess: false,
+    scaffoldMessenger.showSnackBar(
+       SnackBar(
+        content: Text('❌ Unexpected error occurred. Try again.'),
+         behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:money_nest/features/home/data/user_app_model.dart';
 import 'package:money_nest/features/home/presentation/manager/user/user_cubit.dart';
 import 'package:money_nest/features/home/presentation/views/widgets/account_info.dart';
@@ -22,7 +23,10 @@ class SettingsViewBody extends StatelessWidget {
     return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         if (state is UserLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return  Center(child: LoadingAnimationWidget.progressiveDots(
+                      color: Colors.grey,
+                      size: 50,
+                    ));
         } else if (state is UserLoaded) {
           final AppUser user = state.user;
           return ListView(
