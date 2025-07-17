@@ -8,8 +8,8 @@ import 'package:money_nest/features/add_expenses/presentation/manager/get_all_ex
 import 'package:money_nest/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:money_nest/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:money_nest/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
-import 'package:money_nest/features/auth/presentation/views/login_page.dart';
 import 'package:money_nest/features/home/presentation/manager/user/user_cubit.dart';
+import 'package:money_nest/features/splash/presentation/views/splash_view.dart';
 
 
 
@@ -46,7 +46,7 @@ class MoneyNest extends StatelessWidget {
           ),
         ),
         title: 'MoneyNeast',
-        home: LoginPage(),
+        home: SplashView(),
       ),
     );
   }
