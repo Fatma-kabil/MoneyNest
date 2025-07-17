@@ -23,7 +23,7 @@ MoneyNest is a beautifully designed app to help you take control of your daily e
 <img src="assets/images/home.jpeg" width="250">  
 
 
-> _(Add your actual screenshots in the `assets/screenshots` folder and adjust the paths if needed.)_
+
 
 ---
 
