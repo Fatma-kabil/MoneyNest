@@ -18,10 +18,10 @@ MoneyNest is a beautifully designed app to help you take control of your daily e
 ---
 
 ## 📸 Screenshots
-
-<img src="assets/images/signup.jpeg" width="250">  
-<img src="assets/images/home.jpeg" width="250">  
-
+<p align="center">
+  <img src="assets/images/signup.jpeg" width="250" style="margin-right: 10px;" />
+  <img src="assets/images/home.jpeg" width="250" />
+</p>
 
 
 
