@@ -21,15 +21,17 @@ Built with **Clean Architecture** and the **BLoC pattern**, and powered by **Fir
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="assets/images/intro.png" width="200" style="margin: 5px;" />
-  <img src="assets/images/login (2).png" width="200" style="margin: 5px;" />
-  <img src="assets/images/signup.jpeg" width="200" style="margin: 5px;" />
-  <img src="assets/images/home.jpeg" width="200" style="margin: 5px;" />
-  <img src="assets/images/add_exp.png" width="200" style="margin: 5px;" />
-  <img src="assets/images/trans.png" width="200" style="margin: 5px;" />
-  <img src="assets/images/settings.png" width="200" style="margin: 5px;" />
+  <img src="assets/images/intro.png" height="250" style="margin-right: 15px;" />
+  <img src="assets/images/login (2).png" height="250" style="margin-right: 15px;" />
+  <img src="assets/images/signup.jpeg" height="250" style="margin-right: 15px;" />
+  <img src="assets/images/home.jpeg" height="250" />
 </p>
 
+<p align="center">
+  <img src="assets/images/add_exp.png" height="250" style="margin-right: 15px;" />
+  <img src="assets/images/trans.png" height="250" style="margin-right: 15px;" />
+  <img src="assets/images/settings.png" height="250" />
+</p>
 ---
 
 ## 🛠 Technologies Used
