@@ -2,36 +2,107 @@
 
 **Your Smart Personal Expense Tracker**
 
-MoneyNest is a beautifully designed app to help you take control of your daily expenses, income, and financial habits. Powered by Firebase and built using Clean Architecture & BLoC pattern with Flutter.
+MoneyNest is a beautifully designed Flutter app that helps you take control of your daily expenses, income, and financial habits.  
+Built with **Clean Architecture** and the **BLoC pattern**, and powered by **Firebase** for secure authentication and real-time data management.
 
 ---
 
 ## ✨ Features
 
-- 🔐 Secure sign-up and login with Firebase Authentication
-- 📊 Visualize your income and expenses with dynamic charts
-- 💸 Add and delete expenses with category tracking
-- 📁 View total balance and transaction history
-- 🌈 Elegant and colorful UI inspired by modern design
-- 🔔 Custom Snackbar alerts and error handling
+- 🔐 Secure sign-up and login with Firebase Authentication  
+- 📊 Visualize your income and expenses with dynamic charts  
+- 💸 Add, edit, and delete expenses with category tracking  
+- 📁 View total balance and full transaction history  
+- 🌈 Elegant and modern UI design  
+- 🔔 Custom Snackbar alerts and robust error handling  
 
 ---
 
 ## 📸 Screenshots
+
 <p align="center">
-  <img src="assets/images/signup.jpeg" width="250" style="margin-right: 10px;" />
-  <img src="assets/images/home.jpeg" width="250" />
+  <img src="assets/images/intro.png" width="200" style="margin: 5px;" />
+  <img src="assets/images/login (2).png" width="200" style="margin: 5px;" />
+  <img src="assets/images/signup.jpeg" width="200" style="margin: 5px;" />
+  <img src="assets/images/home.jpeg" width="200" style="margin: 5px;" />
+  <img src="assets/images/add_exp.png" width="200" style="margin: 5px;" />
+  <img src="assets/images/trans.png" width="200" style="margin: 5px;" />
+  <img src="assets/images/settings.png" width="200" style="margin: 5px;" />
 </p>
-
-
 
 ---
 
-## 🔧 Technologies Used
+## 🛠 Technologies Used
 
-- **Flutter** (Clean Architecture + BLoC)
-- **Firebase Authentication**
-- **Firebase Firestore**
-- **fl_chart** for dynamic charts
-- **Custom Snackbar** for feedback
+| Technology | Purpose |
+|------------|--------|
+| Flutter | Cross-platform development |
+| BLoC & Clean Architecture | State management & scalable architecture |
+| Firebase Authentication | Secure user authentication |
+| Firebase Firestore | Real-time database |
+| fl_chart | Dynamic charts for income & expenses |
+| Custom Snackbar | Feedback and alerts |
 
+---
+
+## 📂 Project Structure
+
+```text
+lib
+ ┣ core
+ ┃ ┗ utils
+ ┃    ┣ functions          # Reusable helper functions (validators, formatters, etc.)
+ ┃    ┗ widgets            # Reusable widgets (CustomButtons, Snackbars, Charts, etc.)
+ ┣ features
+ ┃ ┣ splash                # Splash screen feature
+ ┃ ┣ home                  # Home screen feature
+ ┃ ┣ authentication        # Sign-up / Login / Logout
+ ┃ ┗ expenses
+ ┃    ┣ data               # Models, repositories, data sources
+ ┃    ┣ domain             # Entities, use cases
+ ┃    ┗ presentation       # Screens, blocs, feature-specific widgets
+ ┣ main.dart               # App entry point
+```
+
+The project follows **Clean Architecture principles** to maintain a modular and scalable codebase.
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/Fatma-kabil/MoneyNest
+```
+
+### 2️⃣ Navigate to the project directory
+
+```bash
+cd moneynest
+```
+
+### 3️⃣ Install dependencies
+
+```bash
+flutter pub get
+```
+
+### 4️⃣ Run the application
+
+```bash
+flutter run
+```
+
+---
+
+## 🎯 Project Goals
+
+MoneyNest was built to:
+
+- Help users track expenses and income easily  
+- Visualize financial habits through charts  
+- Implement **Clean Architecture** with **BLoC** in a real-world Flutter app  
+- Integrate secure authentication and real-time database with Firebase  
+
+---
